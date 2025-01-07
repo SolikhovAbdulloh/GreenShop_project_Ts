@@ -1,14 +1,24 @@
-import { Form, Input, } from "antd";
+import { Form, Input } from "antd";
 
 import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
+import { RegisterType } from "../../@types";
+import { useAxios } from "../../hooks/useAxios";
 const Register = () => {
+  const axios = useAxios();
+  const onFinish = (e: RegisterType) => {
+    console.log(e);
+    axios({ url: "/user/sign-up", body: e, method: "POST" })
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
   const icon_style: string =
     "border h-[40px] rounded-md flex items-center justify-center gap-3 mb-4 cursor-pointer";
   return (
     <div className="mt-2">
       <Form
         name="register"
+        onFinish={onFinish}
         initialValues={{ remember: true }}
         autoComplete="off"
       >
@@ -48,17 +58,18 @@ const Register = () => {
         <Form.Item
           name="confirm"
           dependencies={["password"]}
-          rules={[
-            { required: true, message: "Please confirm your password!" },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject("The two passwords do not match!");
-              },
-            }),
-          ]}
+          rules={[{ required: true, message: "Please confirm your password!" }]}
+          // rules={[
+          //   { required: true, message: "Please confirm your password!" },
+          //   ({ getFieldValue }) => ({
+          //     validator(_, value) {
+          //       if (!value || getFieldValue("password") === value) {
+          //         return Promise.resolve();
+          //       }
+          //       return Promise.reject("The two passwords do not match!");
+          //     },
+          //   }),
+          // ]}
         >
           <Input.Password
             className="border-[#eaeaea] h-[40px] hover:border-[#46A358] focus:border-[#46A358]"
