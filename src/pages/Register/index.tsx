@@ -4,7 +4,10 @@ import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
 import { RegisterType } from "../../@types";
 import { useAxios } from "../../hooks/useAxios";
-const Register = () => {
+import useSignIn from "react-auth-kit/hooks/useSignIn";
+
+const Register: React.FC = () => {
+  const signIn = useSignIn();
   const axios = useAxios();
   const onFinish = (e: RegisterType) => {
     console.log(e);
@@ -59,17 +62,6 @@ const Register = () => {
           name="confirm"
           dependencies={["password"]}
           rules={[{ required: true, message: "Please confirm your password!" }]}
-          // rules={[
-          //   { required: true, message: "Please confirm your password!" },
-          //   ({ getFieldValue }) => ({
-          //     validator(_, value) {
-          //       if (!value || getFieldValue("password") === value) {
-          //         return Promise.resolve();
-          //       }
-          //       return Promise.reject("The two passwords do not match!");
-          //     },
-          //   }),
-          // ]}
         >
           <Input.Password
             className="border-[#eaeaea] h-[40px] hover:border-[#46A358] focus:border-[#46A358]"
@@ -81,7 +73,7 @@ const Register = () => {
           className="bg-[#46a358] w-full h-[40px] rounded-md text-white mt-5 text-[18px]"
           type="submit"
         >
-          Submit
+          Register
         </button>
       </Form>
       <div className="flex items-center justify-center mt-5 mb-5 gap-4">

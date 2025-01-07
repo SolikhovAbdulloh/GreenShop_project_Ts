@@ -3,7 +3,8 @@ import type { FieldType } from "../../@types";
 import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
 import { useAxios } from "../../hooks/useAxios/";
-const Login = () => {
+import React from "react";
+const Login: React.FC = () => {
   const axios = useAxios();
   const onFinish = (e: FieldType) => {
     axios({ url: "/user/sign-in", body: e, method: "POST" }).then((data) =>
@@ -44,7 +45,7 @@ const Login = () => {
           className="bg-[#46a358] w-full h-[40px] rounded-md text-white mt-5 text-[18px]"
           type="submit"
         >
-          Submit
+          Login
         </button>
       </Form>
       <div className="flex items-center justify-center mt-5 mb-5 gap-4">

@@ -1,10 +1,7 @@
 import logo from "../../../images/logo.svg";
 import { IoSearchOutline } from "react-icons/io5";
-
 import { IoIosNotificationsOutline } from "react-icons/io";
-
 import { FiShoppingCart } from "react-icons/fi";
-
 import { IoMdLogIn } from "react-icons/io";
 import { Badge, Modal } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -17,40 +14,54 @@ import Register from "../Register";
 const Navbar: React.FC = () => {
   const dispatch = useReduxDispatch();
   const { auth } = useReduxSelector((state) => state.modalslice);
-  console.log(auth);
-
   const [login, SetLogin] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Menu holatini kuzatish uchun state
   const { pathname } = useLocation();
-
   const navigate = useNavigate();
 
   return (
-    <header className="flex justify-between items-center">
-      <img src={logo} className="cursor-pointer" alt="" />
-      <div className="flex items-center gap-5">
+    <header className="flex justify-between items-center p-4 relative">
+      <img src={logo} className="cursor-pointer" alt="Logo" />
+
+      <div className="lg:!hidden absolute top-4 right-4">
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <div className="w-6 h-1 bg-black mb-1"></div>
+          <div className="w-6 h-1 bg-black mb-1"></div>
+          <div className="w-6 h-1 bg-black mb-1"></div>
+        </button>
+      </div>
+
+      <div
+        className={`flex items-center gap-5 lg:flex ${
+          isMenuOpen
+            ? "flex-col absolute top-16 left-0 w-full bg-white z-10 p-5"
+            : "hidden"
+        } lg:block`}
+      >
         <a
-          className={`text-[18px] cursor-pointer  font-normal  ${
+          className={`text-[18px] cursor-pointer font-normal ${
             pathname !== "/Home"
               ? "text-[black]"
               : "text-[#46A358] border-b-2 border-[green]"
-          } `}
+          }`}
           href="#"
           onClick={() => navigate("Home")}
         >
           Home
         </a>
         <a
-          className={`text-[18px] cursor-pointer font-normal  ${
+          className={`text-[18px] cursor-pointer font-normal ${
             pathname !== "/Blog"
               ? "text-[black]"
               : "text-[#46A358] border-b-2 border-[green]"
-          } `}
+          }`}
           href="#"
           onClick={() => navigate("Blog")}
         >
           Blog
         </a>
       </div>
+
       <div className="flex items-center gap-5">
         <IoSearchOutline className="text-[24px] cursor-pointer" />
         <IoIosNotificationsOutline className="text-[29px] cursor-pointer" />
@@ -74,7 +85,7 @@ const Navbar: React.FC = () => {
               onClick={() => SetLogin(true)}
               className={`font-medium cursor-pointer text-[20px] ${
                 login ? "text-[#46A358]" : "text-[black]"
-              } `}
+              }`}
             >
               Login
             </h3>
@@ -82,8 +93,8 @@ const Navbar: React.FC = () => {
             <h3
               onClick={() => SetLogin(false)}
               className={`font-medium cursor-pointer text-[20px] ${
-                !login   ? "text-[#46A358]" : "text-[black]"
-              } `}
+                !login ? "text-[#46A358]" : "text-[black]"
+              }`}
             >
               Register
             </h3>
