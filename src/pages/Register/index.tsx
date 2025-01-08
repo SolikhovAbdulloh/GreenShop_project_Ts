@@ -4,11 +4,26 @@ import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
 import { RegisterType } from "../../@types";
 import { useAxios } from "../../hooks/useAxios";
-import useNotification from "antd/es/notification/useNotification";
+import { signInWithGoogle } from "../../config";
 // import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 const Register: React.FC = () => {
-  const notify = useNotification();
+  const signUpgoogle = async () => {
+    const respone = await signInWithGoogle();
+    await axios({
+      url: "/user/sign-up/google",
+      method: "POST",
+      body: { email: respone.user.email },
+    })
+      .then((data) => {
+        console.log(data);
+        notification.open({ message: "Success" });
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({ message: "Error" });
+      });
+  };
   // const signIn = useSignIn();
   const axios = useAxios();
   const onFinish = (e: RegisterType) => {
@@ -106,7 +121,7 @@ const Register: React.FC = () => {
         <p className="w-[40%]text-[#3D3D3D] text-[13px]">Or Register with</p>
         <div className="w-[30%] h-[2px] bg-[#EAEAEA]"></div>
       </div>
-      <div className={icon_style}>
+      <div onClick={signUpgoogle} className={icon_style}>
         <img src={google} alt="" />
         Register with Google
       </div>
