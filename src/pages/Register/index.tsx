@@ -1,19 +1,35 @@
-import { Form, Input } from "antd";
+import { Form, Input, notification } from "antd";
 
 import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
 import { RegisterType } from "../../@types";
 import { useAxios } from "../../hooks/useAxios";
-import useSignIn from "react-auth-kit/hooks/useSignIn";
+import useNotification from "antd/es/notification/useNotification";
+// import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 const Register: React.FC = () => {
-  const signIn = useSignIn();
+  const notify = useNotification();
+  // const signIn = useSignIn();
   const axios = useAxios();
   const onFinish = (e: RegisterType) => {
     console.log(e);
-    axios({ url: "/user/sign-up", body: e, method: "POST" })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    const { password, email, name, surname } = e;
+    axios({
+      url: "/user/sign-up",
+      body: { password, email, name, surname },
+      method: "POST",
+    })
+      .then((data) => {
+        console.log(data);
+        notification.success({
+          message: "Ro'yxatdan o'tish muvaffaqiyatli amalga oshirildi!",
+        });
+      })
+
+      .catch((err) => {
+        console.log(err);
+        notification.error({ message: "Xatolik yuz berdi!" });
+      });
   };
   const icon_style: string =
     "border h-[40px] rounded-md flex items-center justify-center gap-3 mb-4 cursor-pointer";
@@ -32,6 +48,15 @@ const Register: React.FC = () => {
           <Input
             className="border-[#eaeaea] h-[40px] hover:border-[#46A358] focus:border-[#46A358]"
             placeholder="Name"
+          />
+        </Form.Item>
+        <Form.Item
+          name="surname"
+          rules={[{ required: true, message: "Please input your surname!" }]}
+        >
+          <Input
+            className="border-[#eaeaea] h-[40px] hover:border-[#46A358] focus:border-[#46A358]"
+            placeholder="Surname"
           />
         </Form.Item>
 
@@ -78,19 +103,21 @@ const Register: React.FC = () => {
       </Form>
       <div className="flex items-center justify-center mt-5 mb-5 gap-4">
         <div className="w-[30%] h-[2px] bg-[#EAEAEA]"></div>
-        <p className="w-[40%]text-[#3D3D3D] text-[13px]">Or login with</p>
+        <p className="w-[40%]text-[#3D3D3D] text-[13px]">Or Register with</p>
         <div className="w-[30%] h-[2px] bg-[#EAEAEA]"></div>
       </div>
       <div className={icon_style}>
         <img src={google} alt="" />
-        Login with Google
+        Register with Google
       </div>
       <div className={icon_style}>
         <img src={face} alt="" />
-        Login with Facebook
+        Register with Facebook
       </div>
     </div>
   );
 };
 
 export default Register;
+// abdullohsolikhov@gmail.com
+//Apple701

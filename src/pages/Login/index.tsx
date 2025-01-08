@@ -1,10 +1,27 @@
-import { Form, Input } from "antd";
+import { Form, Input, notification } from "antd";
 import type { FieldType } from "../../@types";
 import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
 import { useAxios } from "../../hooks/useAxios/";
+import { signInWithGoogle } from "../../config";
 import React from "react";
 const Login: React.FC = () => {
+  const signIngoogle = async () => {
+    const respone = await signInWithGoogle();
+    await axios({
+      url: "/user/sign-in/google",
+      method: "POST",
+      body: { email: respone.user.email },
+    })
+      .then((data) => {
+        console.log(data);
+        notification.open({ message: "Success" });
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({ message: "Error" });
+      });
+  };
   const axios = useAxios();
   const onFinish = (e: FieldType) => {
     axios({ url: "/user/sign-in", body: e, method: "POST" }).then((data) =>
@@ -53,7 +70,7 @@ const Login: React.FC = () => {
         <p className="w-[40%]text-[#3D3D3D] text-[13px]">Or login with</p>
         <div className="w-[30%] h-[2px] bg-[#EAEAEA]"></div>
       </div>
-      <div className={icon_style}>
+      <div onClick={signIngoogle} className={icon_style}>
         <img src={google} alt="" />
         Login with Google
       </div>
