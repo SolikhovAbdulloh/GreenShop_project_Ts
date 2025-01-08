@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout";
 import Home from "../pages/home";
 import Blog from "../pages/blog";
+import { Empty } from "antd";
 
 export const root = createBrowserRouter([
   {
@@ -17,5 +18,9 @@ export const root = createBrowserRouter([
         element: <Blog />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Empty />,
   },
 ]);

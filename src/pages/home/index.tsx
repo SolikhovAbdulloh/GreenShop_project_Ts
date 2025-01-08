@@ -10,6 +10,8 @@ import rasm7 from "../../../images/rasm7.png";
 import rasm8 from "../../../images/rasm8.png";
 import rasm9 from "../../../images/rasm9.png";
 import Categories from "./categories";
+import Flowers from "./flowers";
+import Blog_flowers from "./bloga_flowers";
 
 const Home: React.FC = () => {
   return (
@@ -74,6 +76,8 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
+      <Flowers />
+      <Blog_flowers />
     </div>
   );
 };

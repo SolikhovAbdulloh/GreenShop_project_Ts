@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap");
 
 * {
   margin: 0;
@@ -18,4 +17,11 @@
 .img1{
   width: 280px;
   height: 270px;
+}
+.flower:hover{
+  border: 3px solid green;
+  box-shadow: 1px 1px 1px  gray;
+}
+.read:hover{
+  color:  #46a358;
 }

@@ -3,8 +3,8 @@ export interface FieldType {
   password?: string;
 }
 export interface RegisterType {
-  name: string;
-  email: string;
-  password: string;
-  surname: string;
+  name?: string;
+  email?: string;
+  password?: string;
+  surname?: string;
 }

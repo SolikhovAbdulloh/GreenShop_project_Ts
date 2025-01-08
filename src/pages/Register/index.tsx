@@ -77,7 +77,13 @@ const Register: React.FC = () => {
 
         <Form.Item
           name="email"
-          rules={[{ required: true, message: "Please input your email!" }]}
+          rules={[
+
+            { required: true, message: "Please input your email!" },
+            {type:'email', message:'Iltimos email kiriting'}
+          ]
+        }
+          
         >
           <Input
             className="border-[#eaeaea] h-[40px] hover:border-[#46A358] focus:border-[#46A358]"
