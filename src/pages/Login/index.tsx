@@ -5,7 +5,11 @@ import face from "../../../images/facebook.svg";
 import { useAxios } from "../../hooks/useAxios/";
 import { signInWithGoogle } from "../../config";
 import React from "react";
+import { useReduxDispatch, useReduxSelector } from "../../hooks/useRedux";
+import { SetAuthModal } from "../../redux/modal.slice";
 const Login: React.FC = () => {
+  const dispatch = useReduxDispatch();
+  const { auth } = useReduxSelector((state) => state.modalslice);
   const signIngoogle = async () => {
     const respone = await signInWithGoogle();
     await axios({
@@ -16,7 +20,9 @@ const Login: React.FC = () => {
       .then((data) => {
         console.log(data);
         notification.open({ message: "Success" });
+        dispatch(SetAuthModal({auth:false} as any))
       })
+      
       .catch((err) => {
         console.log(err);
         notification.error({ message: "Error" });

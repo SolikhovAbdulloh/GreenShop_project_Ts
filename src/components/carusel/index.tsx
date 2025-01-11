@@ -1,33 +1,14 @@
 import React from "react";
 import { Carousel } from "antd";
-
-const contentStyle: React.CSSProperties = {
-  margin: 0,
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#364d79",
-};
-
+import { hero_mock } from "../../utils";
+import { HeroSliderType } from "../../@types";
+import HeroItem from "./hero-item";
 const CaruselComponent: React.FC = () => {
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
-  };
-
   return (
-    <Carousel afterChange={onChange}>
-      <div>
-        <h3 style={contentStyle}>1</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>2</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>3</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>4</h3>
-      </div>
+    <Carousel autoplay className=" py-3 px-[30px]">
+      {hero_mock.map((value: HeroSliderType) => (
+        <HeroItem key={value.id} {...value} />
+      ))}
     </Carousel>
   );
 };

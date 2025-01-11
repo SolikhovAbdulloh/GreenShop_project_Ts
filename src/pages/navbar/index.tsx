@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
       <div className="flex items-center gap-5">
         <IoSearchOutline className="text-[24px] cursor-pointer" />
         <IoIosNotificationsOutline className="text-[29px] cursor-pointer" />
-        <Badge count={123}>
+        <Badge onClick={()=>navigate('karzinka')} count={123}>
           <FiShoppingCart className="text-[24px] cursor-pointer" />
         </Badge>
         <button

@@ -11,7 +11,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import paymal from "../../../images/paymal.png";
 const Footer: React.FC = () => {
   return (
-    <div className="mt-[5vh] ">
+    <div className="mt-[2vh] ">
       <div className="flex text-[14px] font-normal px-4 py-[26px] bg-[#edf6ef] cursor-pointer justify-between items-center">
         <img src={logo} alt="" />
         <p className="flex items-center gap-3">
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
           +88 01911 717 490
         </p>
       </div>
-      <footer className="flex justify-between items-start mt-[5vh]">
+      <footer className="flex bg-[#FBFBFB] py-3 px-3 justify-between items-start mt-[5vh]">
         <div className="flex flex-col items-start gap-1">
           <h3 className="text-[19px] font-bold">My Account</h3>
           <p className="text-[14px] font-normal">My Account</p>
@@ -74,7 +74,9 @@ const Footer: React.FC = () => {
         </div>
       </footer>
       <div className="w-full h-[1px] bg-[#e1e1e1]  mt-[14px]">
-        <p className="text-center font-normal text-[14px] mt-3 ">© 2021 GreenShop. All Rights Reserved.</p>
+        <p className="text-center font-normal text-[14px] mt-3 ">
+          © 2021 GreenShop. All Rights Reserved.
+        </p>
       </div>
     </div>
   );
