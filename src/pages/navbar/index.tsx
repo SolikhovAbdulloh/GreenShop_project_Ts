@@ -14,14 +14,14 @@ import Register from "../Register";
 const Navbar: React.FC = () => {
   const dispatch = useReduxDispatch();
   const { auth } = useReduxSelector((state) => state.modalslice);
-  const [login, SetLogin] = useState(true);
+  const [login, SetLogin] = useState<boolean>(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Menu holatini kuzatish uchun state
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   return (
     <header className="flex justify-between items-center p-4 relative">
-      <img src={logo} className="cursor-pointer" alt="Logo" />
+      <img src={logo} onClick={()=>navigate('/home')} className="cursor-pointer" alt="Logo" />
 
       <div className="lg:!hidden absolute top-4 right-4">
         <button onClick={() => setIsMenuOpen(!isMenuOpen)}>

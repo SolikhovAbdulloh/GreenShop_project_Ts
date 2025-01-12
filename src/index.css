@@ -56,3 +56,8 @@
 .ant-tabs .ant-tabs-ink-bar {
   background: #46a358 !important;
 }
+
+.grid1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)) !important;
+}

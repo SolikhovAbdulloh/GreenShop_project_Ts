@@ -65,7 +65,8 @@ const Home: React.FC = () => {
           <div className="flex justify-between my-5 text-[15px] font-medium items-center gap-5">
             <div className="flex items-center cursor-pointer gap-4">
               {Title_category.map((value) => (
-                <p key={value.id}
+                <p
+                  key={value.id}
                   className={`${
                     type === value.label && "text-[#46a358] border-b-4 "
                   }`}
@@ -97,7 +98,7 @@ const Home: React.FC = () => {
             </div>
           </div>
           <div>
-            <div className="grid grid-cols-3 gap-[30px]">
+            <div className="grid  grid-cols-3 w-full gap-[30px]">
               {isLoading || isError
                 ? Card_Loader()
                 : data?.map((value: CardType) => (

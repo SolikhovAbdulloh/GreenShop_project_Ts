@@ -1,4 +1,4 @@
-import { Button, Slider } from "antd";
+import { Button,  Slider } from "antd";
 import React, { useState } from "react";
 import rasm from "../../../../images/super.png";
 import { useQueryApi } from "../../../hooks/useQuery";
@@ -40,10 +40,10 @@ const Categories: React.FC = () => {
   return (
     <div className="bg-[#FBFBFB] p-2">
       <p className="text-[17px] font-bold">Categories</p>
-      <div className="flex gap-[130px] w-[250px] mt-[30px] justify-between">
-        <div className="flex-col text-[13px] font-bold gap-3 cursor-pointer flex">
-          {isLoading ? (
-            <h1>Loading</h1>
+      <div className="flex  w-[250px] mt-[30px] justify-between">
+        <div className="flex-col text-[13px] font-bold gap-3 justify-start cursor-pointer flex">
+          {isLoading || isError ? (
+            <div className="mr-2 flex flex-col gap-3">{Category_loader()}</div>
           ) : (
             data?.map((value: CategoryType) => (
               <div key={value._id}>
@@ -52,7 +52,7 @@ const Categories: React.FC = () => {
             ))
           )}
         </div>
-        <div className="flex text-[13px] font-bold flex-col gap-3">
+        <div className="flex text-[13px] items-end font-bold flex-col gap-3">
           {isLoading || isError
             ? Category_loader()
             : data?.map((value: CategoryType) => (

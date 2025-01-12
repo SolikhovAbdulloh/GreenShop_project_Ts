@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { CardType } from "../../../../@types";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { CiShoppingCart } from "react-icons/ci";
+
 import { CiHeart } from "react-icons/ci";
 
 import { CiSearch } from "react-icons/ci";
@@ -16,11 +17,11 @@ const Card: FC<CardType> = (props) => {
         <img
           src={props.main_image}
           alt="flower"
-          className="w-[95%] h-[70%] max-sm:h-[100%]"
+          className="w-[85%] h-[70%] "
         />
         <div className="hidden items-center absolute bottom-4 gap-5  group-hover:flex">
           <div className={style_icons}>
-            <MdOutlineShoppingCart className="text-[22px]" />
+            <CiShoppingCart className="text-[22px]" />
           </div>
           <div className={style_icons}>
             <CiHeart className="text-[22px]" />
