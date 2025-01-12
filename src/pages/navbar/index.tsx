@@ -17,11 +17,20 @@ const Navbar: React.FC = () => {
   const [login, SetLogin] = useState<boolean>(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Menu holatini kuzatish uchun state
   const { pathname } = useLocation();
+  const [time, SetTime] = useState<string>("");
   const navigate = useNavigate();
-
+  setInterval(() => {
+    const Time = new Date().toLocaleTimeString();
+    SetTime(Time);
+  }, 1);
   return (
     <header className="flex justify-between items-center p-4 relative">
-      <img src={logo} onClick={()=>navigate('/home')} className="cursor-pointer" alt="Logo" />
+      <img
+        src={logo}
+        onClick={() => navigate("/home")}
+        className="cursor-pointer"
+        alt="Logo"
+      />
 
       <div className="lg:!hidden absolute top-4 right-4">
         <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -63,9 +72,12 @@ const Navbar: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-5">
+        <p className="text-[20px] font-medium">
+          <span className="text-[#46a358]">{time}</span>
+        </p>
         <IoSearchOutline className="text-[24px] cursor-pointer" />
         <IoIosNotificationsOutline className="text-[29px] cursor-pointer" />
-        <Badge onClick={()=>navigate('karzinka')} count={123}>
+        <Badge onClick={() => navigate("karzinka")} count={123}>
           <FiShoppingCart className="text-[24px] cursor-pointer" />
         </Badge>
         <button
