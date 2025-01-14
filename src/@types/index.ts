@@ -72,3 +72,9 @@ export interface options {
   value: string;
   label: string;
 }
+
+export interface DataType {
+  data?:CardType;
+  isLoading:boolean;
+  isError:boolean;
+}

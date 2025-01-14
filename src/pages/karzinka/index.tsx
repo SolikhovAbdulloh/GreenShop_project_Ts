@@ -1,7 +1,7 @@
 import { Empty } from "antd";
-import React, { FC } from "react";
+import React from "react";
 
-const Karzinka: FC = () => {
+const Karzinka: React.FC = () => {
   return (
     <div>
       <Empty />

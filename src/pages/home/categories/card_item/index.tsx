@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import  React from "react";
 import { Searchparams } from "../../../../generic/useParams";
 import { CategoryType } from "../../../../@types";
 
-const Card_item: FC<CategoryType> = (props) => {
+const Card_item: React.FC<CategoryType> = (props) => {
   const { getParam, Setparam } = Searchparams();
   const typeParams: string = getParam("type") || "all-plants";
   const Setcategy = () => {

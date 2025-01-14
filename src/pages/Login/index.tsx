@@ -9,7 +9,6 @@ import { useReduxDispatch, useReduxSelector } from "../../hooks/useRedux";
 import { SetAuthModal } from "../../redux/modal.slice";
 const Login: React.FC = () => {
   const dispatch = useReduxDispatch();
-  const { auth } = useReduxSelector((state) => state.modalslice);
   const signIngoogle = async () => {
     const respone = await signInWithGoogle();
     await axios({
@@ -27,7 +26,8 @@ const Login: React.FC = () => {
         console.log(err);
         notification.error({ message: "Error" });
       });
-  };
+      
+    };
   const axios = useAxios();
   const onFinish = (e: FieldType) => {
     axios({ url: "/user/sign-in", body: e, method: "POST" }).then((data) =>
