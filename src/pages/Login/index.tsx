@@ -5,7 +5,7 @@ import face from "../../../images/facebook.svg";
 import { useAxios } from "../../hooks/useAxios/";
 import { signInWithGoogle } from "../../config";
 import React from "react";
-import { useReduxDispatch, useReduxSelector } from "../../hooks/useRedux";
+import { useReduxDispatch } from "../../hooks/useRedux";
 import { SetAuthModal } from "../../redux/modal.slice";
 const Login: React.FC = () => {
   const dispatch = useReduxDispatch();
