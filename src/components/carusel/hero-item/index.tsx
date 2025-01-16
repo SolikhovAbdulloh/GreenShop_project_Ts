@@ -3,7 +3,7 @@ import { HeroSliderType } from "../../../@types";
 
 const HeroItem: FC<HeroSliderType> = (props) => {
   return (
-    <div className="bg-[#f5f5f5] flex items-center px-10 h-[450px]">
+    <div className="bg-[#f5f5f5] flex items-center w-[100%] px-10 h-[450px]">
       <div>
         <h3 className="text-[#3D3D3D] text-base font-medium">
           {props.subTitle}

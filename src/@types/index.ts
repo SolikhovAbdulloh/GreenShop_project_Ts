@@ -50,6 +50,7 @@ export interface CardType {
   views: number;
   __v: number;
   _id: string;
+  count:number | undefined
 }
 
 export interface CategoryType {
@@ -77,4 +78,10 @@ export interface DataType {
   data?:CardType;
   isLoading:boolean;
   isError:boolean;
+}
+export interface CouponType {
+  code: string;
+  discount_for: number;
+  id: number;
+  title: string;
 }

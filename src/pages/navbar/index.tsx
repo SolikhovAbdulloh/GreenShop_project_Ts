@@ -14,6 +14,7 @@ import Register from "../Register";
 const Navbar: React.FC = () => {
   const dispatch = useReduxDispatch();
   const { auth } = useReduxSelector((state) => state.modalslice);
+  const {shop} = useReduxSelector(state => state.shopSlice)
   const [login, SetLogin] = useState<boolean>(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Menu holatini kuzatish uchun state
   const { pathname } = useLocation();
@@ -77,7 +78,7 @@ const Navbar: React.FC = () => {
         </p>
         <IoSearchOutline className="text-[24px] cursor-pointer" />
         <IoIosNotificationsOutline className="text-[29px] cursor-pointer" />
-        <Badge onClick={() => navigate("karzinka")} count={123}>
+        <Badge onClick={() => navigate("karzinka")} count={shop.length}>
           <FiShoppingCart className="text-[24px] cursor-pointer" />
         </Badge>
         <button

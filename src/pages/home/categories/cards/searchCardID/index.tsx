@@ -52,7 +52,7 @@ const SearchComponent: React.FC = () =>{
               ) : (
                 data?.detailed_images.map((e: string, idx: number) => (
                   <div key={idx} onClick={() => setimg(e)}>
-                    <img  className="!w-[100px] !h-[100px]" src={e} />
+                    <img className="!w-[100px] !h-[100px]" src={e} />
                   </div>
                 ))
               )}
@@ -79,7 +79,7 @@ const SearchComponent: React.FC = () =>{
               <span className="flex items-center gap-2">
                 <Rate className="text-[15px]" value={data?.rate} />
                 <span className="text-[14px] font-normal text-[black]">
-                  19 Customer Review
+                  <span>{data?.comments.length}</span> Customer Review
                 </span>
               </span>
             </h3>
@@ -173,23 +173,25 @@ const SearchComponent: React.FC = () =>{
                   Tags:
                   <span className="text-[#727272]">Home, Garden, Plants</span>
                 </p>
-                <div className="flex cursor-pointer items-center gap-4">
+                <div className="flex  items-center gap-4">
                   <p>Share this products:</p>
-                  <img src={facebook} alt="face" />
-                  <img src={twitter} alt="twitter" />
-                  <img src={linkdin} alt="linkdin" />
-                  <img src={messege} alt="messege" />
+                  <img className="cursor-pointer" src={facebook} alt="face" />
+                  <img className="cursor-pointer" src={twitter} alt="twitter" />
+                  <img className="cursor-pointer" src={linkdin} alt="linkdin" />
+                  <img className="cursor-pointer" src={messege} alt="messege" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="border-b-2 border-[#46a358] mt-[50px]">
+      <div className=" mt-[50px]">
         <div className="flex items-center gap-5 font-medium mb-4 cursor-pointer text-[17px]">
           <h3
             className={`${
-              !state ? "text-[#46a358] text-[17px] font-bold" : "text-black "
+              !state
+                ? "text-[#46a358] border-b-[2px] border-[#46a358] text-[17px] font-bold"
+                : "text-black "
             } `}
             onClick={() => Setstate(false)}
           >
@@ -197,7 +199,9 @@ const SearchComponent: React.FC = () =>{
           </h3>
           <h3
             className={`${
-              state ? "text-[#46a358] text-[17px] font-bold" : "text-black"
+              state
+                ? "text-[#46a358] border-b-2 border-[#46a358] text-[17px] font-bold"
+                : "text-black"
             } `}
             onClick={() => Setstate(true)}
           >

@@ -11,7 +11,7 @@ const Register: React.FC = () => {
   const signUpgoogle = async () => {
     const respone = await signInWithGoogle();
     await axios({
-      url: "/user/sign-up/google",
+      url: "/user/sign-in/google",
       method: "POST",
       body: { email: respone.user.email },
     })

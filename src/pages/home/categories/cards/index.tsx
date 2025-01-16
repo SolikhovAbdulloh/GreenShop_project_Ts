@@ -6,21 +6,30 @@ import { CiHeart } from "react-icons/ci";
 
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { useReduxDispatch } from "../../../../hooks/useRedux";
+import { getProductshop } from "../../../../redux/shop.slice";
+import { notification } from "antd";
 
 const Card: FC<CardType> = (props) => {
+  const dispacht = useReduxDispatch();
+
   const navigate = useNavigate();
   const style_icons: string =
     "bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]";
   return (
     <div>
       <div className="group h-[300px] bg-[#f5f5f5] flex justify-center items-center relative">
-        <img
-          src={props.main_image}
-          alt="flower"
-          className="w-[85%] h-[70%] "
-        />
+        <img src={props.main_image} alt="flower" className="w-[85%] h-[70%] " />
         <div className="hidden items-center absolute bottom-4 gap-5  group-hover:flex">
-          <div className={style_icons}>
+          <div
+            onClick={() =>
+              dispacht(
+                getProductshop(props),
+                notification.success({ message: "Add card to shop" })
+              )
+            }
+            className={style_icons}
+          >
             <CiShoppingCart className="text-[22px]" />
           </div>
           <div className={style_icons}>
