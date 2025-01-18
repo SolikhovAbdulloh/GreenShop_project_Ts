@@ -88,7 +88,10 @@ const Blog_flowers: React.FunctionComponent = () => {
 
       <div className="kaktus mt-[5vh] flex justify-between items-center">
         <div>
-          <img src={kaktus1} alt="kak" />
+          <img
+            src="http://localhost:5174/src/assets/imgs/advice.png"
+            alt="kak"
+          />
           <p className="text-[17px] font-bold">Garden Care</p>
           <p className="text-[14px] font-normal text-[grey] opacity-1">
             We are an online plant shop <br /> offering a wide range of cheap{" "}
@@ -97,7 +100,10 @@ const Blog_flowers: React.FunctionComponent = () => {
         </div>
         <div className="h-[160px] w-[1px] bg-[grey]"></div>
         <div>
-          <img src={kaktus2} alt="kak" />
+          <img
+            src="http://localhost:5174/src/assets/imgs/advice1.png"
+            alt="kak"
+          />
           <p className="text-[17px] font-bold">Plant Renovation</p>
           <p className="text-[14px] font-normal text-[grey] opacity-1">
             We are an online plant shop <br /> offering a wide range of cheap{" "}

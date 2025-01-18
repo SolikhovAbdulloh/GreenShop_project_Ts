@@ -61,7 +61,7 @@ export const SortOptions: options[] = [
   { id: 2, value: "the-cheapest", label: "The Cheapest" },
   { id: 3, value: "most-expensive", label: "Most Expensive" },
 ];
-export const PriceFuction = (count: number | any, price: number) => {
+export const PriceFuction = (count: number, price: number) => {
   const result = count * price;
 
   return parseFloat(result.toFixed(2));

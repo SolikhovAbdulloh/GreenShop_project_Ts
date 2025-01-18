@@ -20,6 +20,8 @@ const useGetcupon = () => {
     onSuccess: (data: CouponType) => {
       dispatch(setIsLoading(false));
       dispatch(setCoupon(data.discount_for));
+      console.log(data);
+
       notify("Success");
     },
     onError: () => {

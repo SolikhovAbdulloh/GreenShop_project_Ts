@@ -1,38 +1,42 @@
 import { Form, notification } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useReduxSelector } from "../../../hooks/useRedux";
-import { PriceFuction } from "../../../utils";
 import { useRef } from "react";
 import { CheckOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useGetcupon } from "../../../hooks/useQuery/useQueryaction";
+import { PriceFuction } from "../../../utils";
 
 const CardTotal = () => {
+  const navigete = useNavigate();
+
   const refcupon = useRef<HTMLInputElement>(null);
 
   const { shop } = useReduxSelector((state) => state.shopSlice);
 
-  const { isLaoding, coupon } = useReduxSelector((state) => state.cuponSlice);
+  const { coupon, isLaoding } = useReduxSelector((state) => state.cuponSlice);
 
   const PriceAllProduct = shop.reduce((acc, product) => {
-    const price = PriceFuction(product.count, product.price);
-    const result = acc + price;
-    return parseFloat(result.toFixed(2));
+    const price = PriceFuction(Number(product.count), Number(product.price));
+    return Number((acc + price).toFixed(2));
   }, 0);
 
   const { mutate } = useGetcupon();
 
   const getCupon = () => {
-    const coupon_code = refcupon.current?.value;
+    const coupon_code: string = refcupon.current?.value as string;
     if (coupon_code?.trim() === "") {
-      return notification.info({ message: "Error" });
+      return notification.info({ message: "Coupon Not defiened" });
     }
     const newcupon = { coupon_code };
     mutate(newcupon);
   };
 
+  const coupon_value = Number(coupon);
+
   const cupon_title_style = "text-[#3D3D3D] text-[15px] font-normal";
-  const discount_price: number = (PriceAllProduct * coupon)  / 100;
-  console.log(discount_price);
+  const discount_price = (PriceAllProduct * coupon_value)/100;
+
+  console.log(Number(discount_price));
 
   return (
     <div>
@@ -63,40 +67,44 @@ const CardTotal = () => {
         <div className="flex justify-between items-center pt-3">
           <h3 className={`${cupon_title_style}`}>Subtotal</h3>
           <h2 className="text-[#3D3D3D] text-[18px] font-medium">
-            {PriceAllProduct}
+            ${PriceAllProduct}
           </h2>
         </div>
         <div className="flex justify-between items-center pt-3">
           <h3 className={`${cupon_title_style}`}>Coupon Discount</h3>
           <h2 className="text-[#3D3D3D] text-[15px]">
-            {discount_price.toFixed(2)}$
+            {Boolean(coupon) ? discount_price.toFixed(2) : 0}$
           </h2>
         </div>
-      
       </div>
       <div>
         <div className="flex justify-between mt-[20px]">
           <h2 className="text-[#3D3D3D] text-[16px] font-bold">Total:</h2>
-          <h1
-            className={`text-[#46A358] text-[18px] font-bold ${
-              coupon && "line-through"
-            }`}
-          >
-            ${PriceAllProduct.toFixed(2)}
-          </h1>
-          {Boolean(coupon) && (
+          <div className="flex flex-col gap-4">
             <h1
-              className={`text-[#46A358] text-[18px] font-bold
-            `}
+              className={`text-[#46A358] text-[18px] font-bold ${
+                coupon && "line-through"
+              }`}
             >
-              ${(PriceAllProduct - discount_price).toFixed(2)}
+              ${PriceAllProduct.toFixed(2)}
             </h1>
-          )}
+            {Boolean(coupon) && (
+              <h1
+                className={`text-[#46A358] text-[18px] font-bold
+            `}
+              >
+                ${(PriceAllProduct - discount_price).toFixed(2)}
+              </h1>
+            )}
+          </div>
         </div>
-        <button className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white w-full h-[40px] mt-[30px]">
+        <button
+          onClick={() => navigete("/product-checkout")}
+          className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white w-full h-[40px] mt-[30px]"
+        >
           Proceed To Checkout
         </button>
-        <Link to={"/"} className="flex justify-center">
+        <Link to={"/Home"} className="flex justify-center">
           <button className="mt-[14px] text-[#46A358] cursor-pointer">
             Continue Shopping
           </button>

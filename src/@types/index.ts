@@ -50,7 +50,8 @@ export interface CardType {
   views: number;
   __v: number;
   _id: string;
-  count:number | undefined
+  count: number;
+  user_price: number;
 }
 
 export interface CategoryType {
@@ -75,13 +76,55 @@ export interface options {
 }
 
 export interface DataType {
-  data?:CardType;
-  isLoading:boolean;
-  isError:boolean;
+  data?: CardType;
+  isLoading: boolean;
+  isError: boolean;
 }
 export interface CouponType {
   code: string;
   discount_for: number;
   id: number;
   title: string;
+}
+
+export interface Blogtype {
+  content: string;
+  created_at: string;
+  created_by: string;
+  reaction_length: number;
+  short_description: string;
+  title: string;
+  views: number;
+  __v: number;
+  _id: string;
+}
+export interface UserType {
+  create_account_limit?: number;
+  create_plant_limit?: number;
+  create_post_limit?: number;
+  created_at?: string;
+  created_by?: string;
+  email?: string;
+  followers?: string[];
+  hashtags?: [];
+  name?: string;
+  order_list?: [];
+  password?: string;
+  permission?: string;
+  profile_photo?: string;
+  surname?: string;
+  user_type?: string;
+  username?: string;
+  _id?: string;
+}
+
+export interface UserTypeApi {
+  data?: UserType;
+  isLoading: boolean;
+  isError: boolean;
+}
+export interface DataUserinfo {
+  data?: Blogtype;
+  isLoading: boolean;
+  isError: boolean;
 }

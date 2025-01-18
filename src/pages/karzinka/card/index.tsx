@@ -7,6 +7,7 @@ import { message } from "antd";
 import { PriceFuction } from "../../../utils";
 
 const Card: FC<CardType> = ({ main_image, _id, count, title, price }) => {
+  
   const disable = Number(count) <= 1 ? true : false;
 
   const dispatch = useReduxDispatch();
@@ -41,7 +42,7 @@ const Card: FC<CardType> = ({ main_image, _id, count, title, price }) => {
             </button>
           </div>
           <div className="text-[#46A358] text-[16px] font-bold   w-[20%]">
-            ${PriceFuction(count, price)}
+            ${PriceFuction((count), price)}
           </div>
           <div
             onClick={() =>
