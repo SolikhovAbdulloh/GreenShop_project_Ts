@@ -3,7 +3,6 @@ import blog1 from "../../../../images/blog1.png";
 import blog2 from "../../../../images/blog2.png";
 import blog3 from "../../../../images/blog3.png";
 import blog4 from "../../../../images/blog4.png";
-import kaktus1 from "../../../../images/kaktus1.png";
 import kaktus2 from "../../../../images/kaktus2.png";
 
 import { TiArrowRightOutline } from "react-icons/ti";
