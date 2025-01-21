@@ -1,18 +1,25 @@
 import { FC } from "react";
-import { CardType } from "../../../../@types";
+import { CardType, UserType } from "../../../../@types";
 import { CiShoppingCart } from "react-icons/ci";
-
-import { CiHeart } from "react-icons/ci";
 
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { useReduxDispatch } from "../../../../hooks/useRedux";
 import { getProductshop } from "../../../../redux/shop.slice";
 import { notification } from "antd";
+import { useHandler } from "../../../../generic/handler";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
+import { useAuthUser } from "react-auth-kit";
 
 const Card: FC<CardType> = (props) => {
   const dispacht = useReduxDispatch();
+  const { likeHundler } = useHandler();
+  const auth: UserType = useAuthUser()() ?? {};
+  let FindLiked = auth.wishlist?.filter(
+    (value) => value.flower_id !== String(props._id)
+  )[0];
 
+  let isLiked = Boolean(FindLiked);
   const navigate = useNavigate();
   const style_icons: string =
     "bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]";
@@ -32,8 +39,20 @@ const Card: FC<CardType> = (props) => {
           >
             <CiShoppingCart className="text-[22px]" />
           </div>
-          <div className={style_icons}>
-            <CiHeart className="text-[22px]" />
+          <div
+            onClick={() =>
+              likeHundler({
+                isLiked,
+                data: { route_path: props.category, flower_id: props._id },
+              })
+            }
+            className={style_icons}
+          >
+            {isLiked ? (
+              <HeartFilled className="text-[22px] text-[red]" />
+            ) : (
+              <HeartOutlined className="text-[22px]" />
+            )}
           </div>
           <div
             onClick={() => navigate(`/search/${props.category}/${props._id}`)}

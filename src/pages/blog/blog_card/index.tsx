@@ -3,6 +3,7 @@ import { Avatar, Card } from "antd";
 import type { FC } from "react";
 import { Blogtype } from "../../../@types";
 import { useNavigate } from "react-router-dom";
+import { useAxios } from "../../../hooks/useAxios";
 
 const Blog_card: FC<Blogtype> = ({
   title,
@@ -12,6 +13,8 @@ const Blog_card: FC<Blogtype> = ({
   created_by,
 }) => {
   const navigate = useNavigate();
+  const axios = useAxios();
+
   return (
     <Card
       className="mt-5"
@@ -36,8 +39,12 @@ const Blog_card: FC<Blogtype> = ({
         }
         title={
           <h2
-            className="cursor-pointer"
-            onClick={() => navigate(`/blog/${_id}/${created_by}`)}
+            // className="cursor-pointer"
+
+            onClick={() => {
+              axios({ url: "/user/blog/view", method: "PUT", body: { _id } });
+              navigate(`/blog/${_id}/${created_by}`);
+            }}
           >
             {title}
           </h2>

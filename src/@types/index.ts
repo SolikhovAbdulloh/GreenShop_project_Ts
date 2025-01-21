@@ -81,10 +81,12 @@ export interface DataType {
   isError: boolean;
 }
 export interface CouponType {
-  code: string;
-  discount_for: number;
-  id: number;
-  title: string;
+  data: {
+    code: string;
+    discount_for: number;
+    id: number;
+    title: string;
+  };
 }
 
 export interface Blogtype {
@@ -116,6 +118,12 @@ export interface UserType {
   user_type?: string;
   username?: string;
   _id?: string;
+  wishlist?: WishListItemType[];
+}
+
+export interface WishListItemType {
+  flower_id: string;
+  route_path: string;
 }
 
 export interface UserTypeApi {

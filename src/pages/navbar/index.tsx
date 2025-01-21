@@ -10,11 +10,18 @@ import { SetAuthModal } from "../../redux/modal.slice";
 import { useState } from "react";
 import Login from "../Login";
 import Register from "../Register";
+import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
+import { UserType } from "../../@types";
 
 const Navbar: React.FC = () => {
+  const IsAuth = useIsAuthenticated()();
+  const UserAuth: UserType = useAuthUser()() ?? {};
+  // console.log(IsAuth);
+  // console.log(UserAuth);
+
   const dispatch = useReduxDispatch();
   const { auth } = useReduxSelector((state) => state.modalslice);
-  const {shop} = useReduxSelector(state => state.shopSlice)
+  const { shop } = useReduxSelector((state) => state.shopSlice);
   const [login, SetLogin] = useState<boolean>(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Menu holatini kuzatish uchun state
   const { pathname } = useLocation();
@@ -82,16 +89,21 @@ const Navbar: React.FC = () => {
           <FiShoppingCart className="text-[24px] cursor-pointer" />
         </Badge>
         <button
-          onClick={() => dispatch(SetAuthModal())}
+          onClick={() => dispatch(SetAuthModal({ open: true }))}
           className="w-[100px] h-[35px] flex items-center bg-[#46A358] text-white rounded-md justify-center gap-1"
         >
-          <IoMdLogIn className="text-[22px]" />
-          login
+          {IsAuth ? (
+            UserAuth.name 
+          ) : (
+            <>
+              <IoMdLogIn className="text-[22px]" /> login
+            </>
+          )}
         </button>
         <Modal
-          onCancel={() => dispatch(SetAuthModal())}
           footer={false}
-          open={auth}
+          open={auth.open}
+          onCancel={() => dispatch(SetAuthModal({ open: false }))}
         >
           <div className="flex justify-center items-center gap-5 mt-4">
             <h3

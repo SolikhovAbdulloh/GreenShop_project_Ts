@@ -1,39 +1,22 @@
-import { Form, Input, notification } from "antd";
+import { Form, Input } from "antd";
 import type { FieldType } from "../../@types";
 import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
-import { useAxios } from "../../hooks/useAxios/";
-import { signInWithGoogle } from "../../config";
 import React from "react";
-import { useReduxDispatch } from "../../hooks/useRedux";
+import { useLogin, useLoginGoogle } from "../../hooks/useQuery/useQueryaction";
 import { SetAuthModal } from "../../redux/modal.slice";
+import { useReduxDispatch } from "../../hooks/useRedux";
 const Login: React.FC = () => {
+  const { mutate: mutateGoogle } = useLoginGoogle();
+  const { mutate } = useLogin();
   const dispatch = useReduxDispatch();
-  const signIngoogle = async () => {
-    const respone = await signInWithGoogle();
-    await axios({
-      url: "/user/sign-in/google",
-      method: "POST",
-      body: { email: respone.user.email },
-    })
-      .then((data) => {
-        console.log(data);
-        notification.open({ message: "Success" });
-        dispatch(SetAuthModal({auth:false} as any))
-      })
-      
-      .catch((err) => {
-        console.log(err);
-        notification.error({ message: "Error" });
-      });
-      
-    };
-  const axios = useAxios();
+
   const onFinish = (e: FieldType) => {
-    axios({ url: "/user/sign-in", body: e, method: "POST" }).then((data) =>
-      console.log(data)
-    );
+    mutate({ data: e });
+    dispatch(SetAuthModal({ open: false,  }));
   };
+
+  const SignInGoogle = () => mutateGoogle();
   const icon_style: string =
     "border h-[40px] rounded-md flex items-center justify-center gap-3 mb-4 cursor-pointer";
   return (
@@ -76,7 +59,7 @@ const Login: React.FC = () => {
         <p className="w-[40%]text-[#3D3D3D] text-[13px]">Or login with</p>
         <div className="w-[30%] h-[2px] bg-[#EAEAEA]"></div>
       </div>
-      <div onClick={signIngoogle} className={icon_style}>
+      <div onClick={SignInGoogle} className={icon_style}>
         <img src={google} alt="" />
         Login with Google
       </div>
@@ -89,3 +72,5 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+// abdullohsolikhov@gmail.com
+//Apple701

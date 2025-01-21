@@ -1,5 +1,7 @@
 import { Blogtype } from "../../@types";
 import { useQueryApi } from "../../hooks/useQuery";
+import { useReduxDispatch } from "../../hooks/useRedux";
+import { SetAuthModal } from "../../redux/modal.slice";
 import Blog_card from "./blog_card";
 
 interface ApiBlog {
@@ -14,7 +16,7 @@ function Blog() {
       search: "",
     },
   });
-
+  const dispatch = useReduxDispatch();
   return (
     <section className="mt-30px w-[90%]">
       <div>
@@ -54,7 +56,10 @@ function Blog() {
           monetizing all types of flowers: acrticles, notes, video, photos,
           podcasts or songs.
         </p>
-        <button className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white m-auto mt-[30px] px-[15px] py-[10px]">
+        <button
+          onClick={()=>{SetAuthModal({open:true})}}
+          className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white m-auto mt-[30px] px-[15px] py-[10px]"
+        >
           Join Greenshop
         </button>
       </div>

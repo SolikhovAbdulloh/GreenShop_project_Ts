@@ -15,6 +15,7 @@ export const useAxios = () => {
       method,
       data: body,
       headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
         "Accsess-Control-Allow-Origin": true,
         ...headers,
@@ -24,7 +25,7 @@ export const useAxios = () => {
         ...params,
       },
     })
-      .then((data) => data.data)
+      .then((data) => data.data.data)
       .catch(() => {
         console.log("error");
       });

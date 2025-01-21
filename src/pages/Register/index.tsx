@@ -1,51 +1,31 @@
-import { Form, Input, notification } from "antd";
+import { Form, Input } from "antd";
 
 import google from "../../../images/google.svg";
 import face from "../../../images/facebook.svg";
+import {
+  useRegister,
+  useRegisterGoogle,
+} from "../../hooks/useQuery/useQueryaction";
 import { RegisterType } from "../../@types";
-import { useAxios } from "../../hooks/useAxios";
-import { signInWithGoogle } from "../../config";
-// import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 const Register: React.FC = () => {
-  const signUpgoogle = async () => {
-    const respone = await signInWithGoogle();
-    await axios({
-      url: "/user/sign-in/google",
-      method: "POST",
-      body: { email: respone.user.email },
-    })
-      .then((data) => {
-        console.log(data);
-        notification.open({ message: "Success" });
-      })
-      .catch((err) => {
-        console.log(err);
-        notification.error({ message: "Error" });
-      });
-  };
-  // const signIn = useSignIn();
-  const axios = useAxios();
-  const onFinish = (e: RegisterType) => {
-    console.log(e);
-    const { password, email, name, surname } = e;
-    axios({
-      url: "/user/sign-up",
-      body: { password, email, name, surname },
-      method: "POST",
-    })
-      .then((data) => {
-        console.log(data);
-        notification.success({
-          message: "Ro'yxatdan o'tish muvaffaqiyatli amalga oshirildi!",
-        });
-      })
+  const { mutate: regiterGoogle } = useRegisterGoogle();
+  const { mutate } = useRegister();
 
-      .catch((err) => {
-        console.log(err);
-        notification.error({ message: "Xatolik yuz berdi!" });
-      });
+  const SignInRegister = () => regiterGoogle();
+
+  const onFinish = (data: RegisterType) => {
+    const { name, surname, email, password } = data;
+    mutate({
+      data: {
+        name,
+        surname,
+        email,
+        password,
+      },
+    });
   };
+
   const icon_style: string =
     "border h-[40px] rounded-md flex items-center justify-center gap-3 mb-4 cursor-pointer";
   return (
@@ -78,12 +58,9 @@ const Register: React.FC = () => {
         <Form.Item
           name="email"
           rules={[
-
             { required: true, message: "Please input your email!" },
-            {type:'email', message:'Iltimos email kiriting'}
-          ]
-        }
-          
+            { type: "email", message: "Iltimos email kiriting" },
+          ]}
         >
           <Input
             className="border-[#eaeaea] h-[40px] hover:border-[#46A358] focus:border-[#46A358]"
@@ -127,7 +104,7 @@ const Register: React.FC = () => {
         <p className="w-[40%]text-[#3D3D3D] text-[13px]">Or Register with</p>
         <div className="w-[30%] h-[2px] bg-[#EAEAEA]"></div>
       </div>
-      <div onClick={signUpgoogle} className={icon_style}>
+      <div onClick={SignInRegister} className={icon_style}>
         <img src={google} alt="" />
         Register with Google
       </div>
