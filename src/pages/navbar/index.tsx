@@ -40,13 +40,7 @@ const Navbar: React.FC = () => {
         alt="Logo"
       />
 
-      <div className="lg:!hidden absolute top-4 right-4">
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          <div className="w-6 h-1 bg-black mb-1"></div>
-          <div className="w-6 h-1 bg-black mb-1"></div>
-          <div className="w-6 h-1 bg-black mb-1"></div>
-        </button>
-      </div>
+     
 
       <div
         className={`flex items-center gap-5 lg:flex ${

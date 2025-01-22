@@ -1,24 +1,37 @@
-import { Blogtype } from "../../@types";
+import { useAuthUser } from "react-auth-kit";
+import { Blogtype, UserType } from "../../@types";
 import { useQueryApi } from "../../hooks/useQuery";
-import { useReduxDispatch } from "../../hooks/useRedux";
+// import { useReduxDispatch } from "../../hooks/useRedux";
 import { SetAuthModal } from "../../redux/modal.slice";
 import Blog_card from "./blog_card";
+import Search from "antd/es/input/Search";
+import { Searchparams } from "../../generic/useParams";
 
 interface ApiBlog {
   isLoading: boolean;
   data?: Blogtype[];
 }
 function Blog() {
+  const { Setparam, getParam } = Searchparams();
+  const onSearch = (e: string) => {
+    Setparam({ search: e });
+    console.log(e);
+  };
+
+  const auth: UserType = useAuthUser()() ?? {};
+  console.log(auth);
+
   const { data, isLoading }: ApiBlog = useQueryApi({
-    pathname: "blog",
+    pathname: `blog?search=${getParam("search")}`,
     url: "/user/blog",
     params: {
-      search: "",
+      search: getParam("search") || "",
     },
   });
-  const dispatch = useReduxDispatch();
+
+  // const dispatch = useReduxDispatch();
   return (
-    <section className="mt-30px w-[90%]">
+    <section className="mt-30px w-[100%]">
       <div>
         <div className="w-full h-[300px] p-[50px] bg-[#F5F5F5] mt-3 flex max-2xl:h-[200px] max-md:h-[150px] justify-between">
           <img
@@ -56,12 +69,24 @@ function Blog() {
           monetizing all types of flowers: acrticles, notes, video, photos,
           podcasts or songs.
         </p>
-        <button
-          onClick={()=>{SetAuthModal({open:true})}}
-          className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white m-auto mt-[30px] px-[15px] py-[10px]"
-        >
-          Join Greenshop
-        </button>
+        <div className="w-[70%] m-auto mt-5">
+          {auth.password && auth.email ? (
+            <Search
+              placeholder="Input search text"
+              onSearch={onSearch}
+              enterButton
+            />
+          ) : (
+            <button
+              onClick={() => {
+                SetAuthModal({ open: true });
+              }}
+              className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white m-auto mt-[30px] px-[15px] py-[10px]"
+            >
+              Join Greenshop
+            </button>
+          )}
+        </div>
       </div>
       <div className="justify-between gap-5 grid grid-cols-3 ">
         {isLoading ? (

@@ -7,6 +7,7 @@ interface TypeModal {
 
 interface initialStateType {
   auth: TypeModal;
+  logOutModalVisiblty: boolean;
 }
 
 const initialState: initialStateType = {
@@ -14,6 +15,7 @@ const initialState: initialStateType = {
     open: false,
     Loading: false,
   },
+  logOutModalVisiblty: false,
 };
 const modalslice = createSlice({
   name: "Modal",
@@ -22,8 +24,11 @@ const modalslice = createSlice({
     SetAuthModal(state, { payload }) {
       state.auth = payload;
     },
+    setLogoutModal(state) {
+      state.logOutModalVisiblty = !state.logOutModalVisiblty;
+    },
   },
 });
 
-export const { SetAuthModal } = modalslice.actions;
+export const { SetAuthModal, setLogoutModal } = modalslice.actions;
 export default modalslice.reducer;
