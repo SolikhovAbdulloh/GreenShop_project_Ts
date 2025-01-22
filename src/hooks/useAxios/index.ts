@@ -25,7 +25,7 @@ export const useAxios = () => {
         ...params,
       },
     })
-      .then((data) => data.data.data)
+      .then((data) => data.data)
       .catch(() => {
         console.log("error");
       });

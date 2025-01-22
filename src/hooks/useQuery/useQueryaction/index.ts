@@ -72,10 +72,10 @@ const useLogin = () => {
     mutationFn: ({ data }: { data: object }) =>
       axios({ url: "/user/sign-in", body: data, method: "POST" }),
 
-    onSuccess: (data: { token: string; user: UserType }): void => {
-      const { token, user } = data;
+    onSuccess: (data: {  data:{token: string; user: UserType} }): void => {
+      const { token, user } = data.data;
       // console.log(data);
-
+      console.log(user)
       sigIn({
         token,
         authState: user,

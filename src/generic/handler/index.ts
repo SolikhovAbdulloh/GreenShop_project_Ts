@@ -17,7 +17,7 @@ const useHandler = () => {
   let SignIn = useSignIn();
   const auth: UserType = useAuthUser()() ?? {};
 
-  const likeHundler = ({ data, isLiked }: LikeType) => {
+  const likeHundler = ({ isLiked, data }: LikeType) => {
     const like = async () => {
       SignIn({
         token: localStorage.getItem("token") as string,
@@ -29,7 +29,7 @@ const useHandler = () => {
         },
       });
       notify("Like");
-      axios({ url: "/user/create-wishlist", method: "POST", body: data });
+      await axios({ url: "/user/create-wishlist", method: "POST", body: data });
     };
     const disLike = async () => {
       SignIn({
@@ -50,6 +50,7 @@ const useHandler = () => {
         body: { _id: data.flower_id },
       });
     };
+
     if (isLiked) {
       return disLike;
     }
