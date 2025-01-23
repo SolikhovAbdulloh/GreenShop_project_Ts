@@ -136,3 +136,10 @@ export interface DataUserinfo {
   isLoading: boolean;
   isError: boolean;
 }
+export interface PathProfileType {
+  id: number;
+  title: string;
+  path: string;
+  Component: React.FunctionComponent;
+  Icon: React.ForwardRefExoticComponent<React.RefAttributes<HTMLDivElement>>;
+}

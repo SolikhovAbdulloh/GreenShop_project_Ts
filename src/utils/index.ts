@@ -66,3 +66,41 @@ export const PriceFuction = (count: number, price: number) => {
 
   return parseFloat(result.toFixed(2));
 };
+
+// export const path_profile: PathProfileType[] = [
+//   {
+//     id: 1,
+//     path: "",
+//     Component: Details,
+//     Icon: UserOutlined,
+//     title: "Account Details",
+//   },
+//   {
+//     id: 2,
+//     path: "my-products",
+//     Component: ProductsProfile,
+//     Icon: ShoppingOutlined,
+//     title: "My Products",
+//   },
+//   {
+//     id: 3,
+//     path: "address",
+//     Component: Adress,
+//     Icon: EnvironmentOutlined,
+//     title: "Adress",
+//   },
+//   {
+//     id: 4,
+//     path: "wishlist",
+//     Component: Wishlist,
+//     Icon: HeartOutlined,
+//     title: "Wishlist",
+//   },
+//   {
+//     id: 5,
+//     path: "track-order",
+//     Component: Order,
+//     Icon: DashboardOutlined,
+//     title: "Track Order",
+//   },
+// ];

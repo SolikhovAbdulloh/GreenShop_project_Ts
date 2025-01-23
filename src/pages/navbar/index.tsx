@@ -23,7 +23,6 @@ const Navbar: React.FC = () => {
   const { auth } = useReduxSelector((state) => state.modalslice);
   const { shop } = useReduxSelector((state) => state.shopSlice);
   const [login, SetLogin] = useState<boolean>(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Menu holatini kuzatish uchun state
   const { pathname } = useLocation();
   const [time, SetTime] = useState<string>("");
   const navigate = useNavigate();
@@ -41,11 +40,7 @@ const Navbar: React.FC = () => {
       />
 
       <div
-        className={`flex items-center gap-5 lg:flex ${
-          isMenuOpen
-            ? "flex-col absolute top-16 left-0 w-full bg-white z-10 p-5"
-            : "hidden"
-        } lg:block`}
+        className={'flex items-center gap-5'}
       >
         <a
           className={`text-[18px] cursor-pointer font-normal ${
@@ -81,7 +76,9 @@ const Navbar: React.FC = () => {
           <FiShoppingCart className="text-[24px] cursor-pointer" />
         </Badge>
         <button
-          onClick={ () => {!IsAuth ? dispatch(SetAuthModal({ open: true })) : navigate('/profile')}}
+          onClick={ () => {!IsAuth
+            ? dispatch(SetAuthModal({ open: true }), navigate("/Home"))
+            : navigate("/profile");}}
           
           className="w-[100px] h-[35px] flex items-center bg-[#46A358] text-white rounded-md justify-center gap-1"
         >

@@ -8,6 +8,12 @@ import { SearchComponent } from "../pages/home/categories/cards/searchCardID";
 import Product_chekout from "../pages/navbar/product_checkout";
 import User_comments_blog from "../pages/blog/Usercomments";
 import Profile from "../components/profile";
+// import { path_profile } from "../utils";
+import Order from "../components/profile/pages_profile/Track-order";
+import Adress from "../components/profile/pages_profile/Address";
+import My_products from "../components/profile/pages_profile/My_products";
+import Wishlist from "../components/profile/pages_profile/Wishlist";
+import Details from "../components/profile/pages_profile/Details";
 
 export const root = createBrowserRouter([
   {
@@ -41,6 +47,32 @@ export const root = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+        children: [
+          {
+            path: "/profile/Order",
+            element: <Order />,
+          },
+          {
+            path: "/profile/Address",
+            element: <Adress />,
+          },
+          {
+            path: "/profile/My_product",
+            element: <My_products />,
+          },
+          {
+            path: "/profile/Wishlist",
+            element: <Wishlist />,
+          },
+          {
+            path: "/profile/Details",
+            element: <Details />,
+          },
+        ],
+        // children: path_profile.map(({ path, Component }) => ({
+        //   path: `${path}`,
+        //   element: <Component />,
+        // })),
       },
     ],
   },
