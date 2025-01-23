@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useQueryApi } from "../../../../hooks/useQuery";
-import { CardType, UserType } from "../../../../@types";
+import { CardType} from "../../../../@types";
 import useLoader from "../../../../generic/loader";
 import Card from "../../../../pages/home/categories/cards";
 
@@ -17,11 +17,15 @@ const My_products: FC = () => {
   });
 
   return (
-    <div>
+    <div className="grid grid-cols-3 gap-9 ">
       {isError || isLoading ? (
         <Card_Loader />
       ) : (
-        data?.map((value: CardType) => <Card key={value._id} {...value} />)
+        data?.map((value: CardType) => (
+          <div className=" flex ">
+            <Card key={value._id} {...value} />
+          </div>
+        ))
       )}
     </div>
   );
