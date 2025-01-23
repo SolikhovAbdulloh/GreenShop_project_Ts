@@ -1,10 +1,7 @@
 import { Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { SetAuthModal } from "../../../../redux/modal.slice";
-import { useReduxDispatch } from "../../../../hooks/useRedux";
 
 const OrdersForms = () => {
-  const dispatch = useReduxDispatch()
   const radio_style: string =
     "bordant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-in-form-item border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg css-k7429zer";
   return (
@@ -109,14 +106,7 @@ const OrdersForms = () => {
       <Form.Item label="Comment" name="comment" rules={[{ required: true }]}>
         <TextArea rows={10} placeholder="Type your first appartment..." />
       </Form.Item>
-      <button
-        onClick={() =>
-          dispatch(
-            SetAuthModal()
-          )
-        }
-        className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white mt-[40px] w-full h-[40px]"
-      >
+      <button className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white mt-[40px] w-full h-[40px]">
         Place order
       </button>
     </Form>

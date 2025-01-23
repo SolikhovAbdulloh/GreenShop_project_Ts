@@ -7,6 +7,7 @@ import Karzinka from "../pages/karzinka";
 import { SearchComponent } from "../pages/home/categories/cards/searchCardID";
 import Product_chekout from "../pages/navbar/product_checkout";
 import User_comments_blog from "../pages/blog/Usercomments";
+import Profile from "../components/profile";
 
 export const root = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const root = createBrowserRouter([
       {
         path: "/blog/:id/:user_id",
         element: <User_comments_blog />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

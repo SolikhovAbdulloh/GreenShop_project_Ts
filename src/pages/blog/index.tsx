@@ -6,20 +6,22 @@ import { SetAuthModal } from "../../redux/modal.slice";
 import Blog_card from "./blog_card";
 import Search from "antd/es/input/Search";
 import { Searchparams } from "../../generic/useParams";
+import { Spin } from "antd";
+import { useNavigate } from "react-router-dom";
 
 interface ApiBlog {
   isLoading: boolean;
   data?: Blogtype[];
 }
 function Blog() {
+  const navigate = useNavigate()
   const { Setparam, getParam } = Searchparams();
   const onSearch = (e: string) => {
     Setparam({ search: e });
-    console.log(e);
   };
 
   const auth: UserType = useAuthUser()() ?? {};
-  console.log(auth);
+  // console.log(auth);
 
   const { data, isLoading }: ApiBlog = useQueryApi({
     pathname: `blog?search=${getParam("search")}`,
@@ -29,7 +31,6 @@ function Blog() {
     },
   });
 
-  // const dispatch = useReduxDispatch();
   return (
     <section className="mt-30px w-[100%]">
       <div>
@@ -79,6 +80,7 @@ function Blog() {
           ) : (
             <button
               onClick={() => {
+                navigate('/profile')
                 SetAuthModal({ open: true });
               }}
               className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white m-auto mt-[30px] px-[15px] py-[10px]"
@@ -90,7 +92,9 @@ function Blog() {
       </div>
       <div className="justify-between gap-5 grid grid-cols-3 ">
         {isLoading ? (
-          <p>Loading</p>
+          <div className="my-7 m-auto ">
+            <Spin size="large" className="m-auto" tip="Loading"></Spin>
+          </div>
         ) : (
           data?.map((value) => <Blog_card key={value._id} {...value} />)
         )}

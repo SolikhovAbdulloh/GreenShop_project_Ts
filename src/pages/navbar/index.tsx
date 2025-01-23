@@ -40,8 +40,6 @@ const Navbar: React.FC = () => {
         alt="Logo"
       />
 
-     
-
       <div
         className={`flex items-center gap-5 lg:flex ${
           isMenuOpen
@@ -83,11 +81,12 @@ const Navbar: React.FC = () => {
           <FiShoppingCart className="text-[24px] cursor-pointer" />
         </Badge>
         <button
-          onClick={() => dispatch(SetAuthModal({ open: true }))}
+          onClick={ () => {!IsAuth ? dispatch(SetAuthModal({ open: true })) : navigate('/profile')}}
+          
           className="w-[100px] h-[35px] flex items-center bg-[#46A358] text-white rounded-md justify-center gap-1"
         >
           {IsAuth ? (
-            UserAuth.name 
+            UserAuth.name
           ) : (
             <>
               <IoMdLogIn className="text-[22px]" /> login

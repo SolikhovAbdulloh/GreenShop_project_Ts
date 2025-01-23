@@ -100,18 +100,20 @@ const useRegister = () => {
   const dispatch = useDispatch();
   const axios = useAxios();
   return useMutation({
-    mutationFn: async ({ data }: { data: object }) => {
-      return await axios({ url: "/user/sign-up", body: data, method: "POST" });
-    },
-    onSuccess: (data: { token: string; user: UserType }) => {
+    mutationFn: async ({ data }: { data: object }) => 
+       await axios({ url: "/user/sign-up", body: data, method: "POST" }),
+    
+    onSuccess: ({data}: {data: { token: string; user: UserType }}) => {
+      // const { token } = data;
+      console.log(data);
+      
+      // localStorage.setItem("token", token);
       notify("RegisterGoogle");
-      const { token } = data;
-      localStorage.setItem("token", token);
       dispatch(SetAuthModal({ open: false }));
     },
     onError: (error) => {
-      notify("Not register");
       console.log(error.message);
+      notify("Not register");
     },
   });
 };
