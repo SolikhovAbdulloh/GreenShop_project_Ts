@@ -8,12 +8,14 @@ import Search from "antd/es/input/Search";
 import { Searchparams } from "../../generic/useParams";
 import { Spin } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useReduxDispatch } from "../../hooks/useRedux";
 
 interface ApiBlog {
   isLoading: boolean;
   data?: Blogtype[];
 }
 function Blog() {
+  const dispatch = useReduxDispatch()
   const navigate = useNavigate()
   const { Setparam, getParam } = Searchparams();
   const onSearch = (e: string) => {
@@ -80,8 +82,8 @@ function Blog() {
           ) : (
             <button
               onClick={() => {
-                navigate('/profile')
-                SetAuthModal({ open: true });
+                {!auth.email && dispatch(SetAuthModal({ open: true }))}
+                
               }}
               className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white m-auto mt-[30px] px-[15px] py-[10px]"
             >

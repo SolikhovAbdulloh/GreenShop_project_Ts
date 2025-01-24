@@ -50,7 +50,7 @@ const SearchComponent: React.FC = () =>{
                   <Skeleton.Image className="!w-[400px] !h-[400px] " />
                 </div>
               ) : (
-                data?.detailed_images.map((e: string, idx: number) => (
+                data?.detailed_images?.map((e: string, idx: number) => (
                   <div key={idx} onClick={() => setimg(e)}>
                     <img className="!w-[100px] !h-[100px]" src={e} />
                   </div>

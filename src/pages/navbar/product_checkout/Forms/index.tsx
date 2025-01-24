@@ -5,13 +5,17 @@ import { UserType } from "../../../../@types";
 
 const OrdersForms = () => {
   const auth: UserType = useAuthUser()() ?? {};
-
   //console.log(auth);
-
+  
   const radio_style: string =
-    "bordant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-in-form-item border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg css-k7429zer";
+  "bordant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-in-form-item border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg css-k7429zer";
+  const OrderMake = (e:object) => {
+    console.log(e);
+    
+  }
   return (
     <Form
+      onFinish={OrderMake}
       fields={[
         { name: "name", value: auth.name },
         { name: "country", value: auth.billing_address?.country },
@@ -126,7 +130,7 @@ const OrdersForms = () => {
       <Form.Item label="Comment" name="comment" rules={[{ required: true }]}>
         <TextArea rows={10} placeholder="Type your first appartment..." />
       </Form.Item>
-      <button className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white mt-[40px] w-full h-[40px]">
+      <button type='submit' className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white mt-[40px] w-full h-[40px]">
         Place order
       </button>
     </Form>

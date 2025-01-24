@@ -109,7 +109,7 @@ const Register: React.FC = () => {
         Register with Google
       </div>
       <div className={icon_style}>
-        <img src={face} alt="" />
+        <img src={face} alt="register" />
         Register with Facebook
       </div>
     </div>

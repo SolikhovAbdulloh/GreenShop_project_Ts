@@ -18,7 +18,6 @@ const Card: FC<CardType> = (props) => {
   let FindLiked = auth.wishlist?.filter(
     (value) => value.flower_id === props._id
   )[0];
-  console.log(auth);
 
   const isLiked = Boolean(FindLiked);
   // console.log(isLiked);

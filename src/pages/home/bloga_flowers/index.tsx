@@ -4,6 +4,7 @@ import blog2 from "../../../../images/blog2.png";
 import blog3 from "../../../../images/blog3.png";
 import blog4 from "../../../../images/blog4.png";
 import kaktus2 from "../../../../images/kaktus2.png";
+import kaktus1 from "../../../../images/kaktus1.png";
 
 import { TiArrowRightOutline } from "react-icons/ti";
 import { Button, Input } from "antd";
@@ -88,7 +89,7 @@ const Blog_flowers: React.FunctionComponent = () => {
       <div className="kaktus mt-[5vh] flex justify-between items-center">
         <div>
           <img
-            src="http://localhost:5174/src/assets/imgs/advice.png"
+            src={kaktus1}
             alt="kak"
           />
           <p className="text-[17px] font-bold">Garden Care</p>
@@ -100,7 +101,7 @@ const Blog_flowers: React.FunctionComponent = () => {
         <div className="h-[160px] w-[1px] bg-[grey]"></div>
         <div>
           <img
-            src="http://localhost:5174/src/assets/imgs/advice1.png"
+            src={kaktus2}
             alt="kak"
           />
           <p className="text-[17px] font-bold">Plant Renovation</p>
