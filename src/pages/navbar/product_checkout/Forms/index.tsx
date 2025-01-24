@@ -1,18 +1,36 @@
 import { Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useAuthUser } from "react-auth-kit";
-import { UserType } from "../../../../@types";
+import { MakeOrderType, UserType } from "../../../../@types";
+import { useReduxDispatch, useReduxSelector } from "../../../../hooks/useRedux";
+import { useMakeOrder } from "../../../../hooks/useQuery/useQueryaction";
+import { SetAuthModal } from "../../../../redux/modal.slice";
+import { LoadingOutlined } from "@ant-design/icons";
+import ModalOrder from "./modal";
 
 const OrdersForms = () => {
   const auth: UserType = useAuthUser()() ?? {};
+  const dispatch = useReduxDispatch();
+  const { OrderModal } = useReduxSelector((state) => state.modalslice);
+  console.log(OrderModal.isLoading);
+
   //console.log(auth);
-  
+  const { shop } = useReduxSelector((state) => state.shopSlice);
+  const { mutate } = useMakeOrder();
+  const total_price = shop.reduce(
+    (acc, value) => (acc += Number(value.user_price)),
+    16
+  );
+
   const radio_style: string =
-  "bordant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-in-form-item border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg css-k7429zer";
-  const OrderMake = (e:object) => {
-    console.log(e);
-    
-  }
+    "bordant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-in-form-item border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg css-k7429zer";
+  const OrderMake = async (e: MakeOrderType) => {
+    const shop_order = {
+      totel: total_price,
+      method: e.payment_method,
+    };
+    await mutate({ shop_list: shop, billing_address: e, shop_order });
+  };
   return (
     <Form
       onFinish={OrderMake}
@@ -130,9 +148,13 @@ const OrdersForms = () => {
       <Form.Item label="Comment" name="comment" rules={[{ required: true }]}>
         <TextArea rows={10} placeholder="Type your first appartment..." />
       </Form.Item>
-      <button type='submit' className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white mt-[40px] w-full h-[40px]">
-        Place order
+      <button
+        onClick={() => !auth.email && dispatch(SetAuthModal({ open: true }))}
+        className="bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white mt-[40px] w-full h-[40px]"
+      >
+        {OrderModal.isLoading ? <LoadingOutlined /> : "Place order"}
       </button>
+      <ModalOrder />
     </Form>
   );
 };

@@ -4,10 +4,13 @@ interface TypeModal {
   open: boolean;
   Loading: boolean;
 }
-
+interface OrderModalType {
+  open: boolean;
+  isLoading: boolean;
+}
 interface initialStateType {
   auth: TypeModal;
-  logOutModalVisiblty: boolean;
+  OrderModal: OrderModalType;
 }
 
 const initialState: initialStateType = {
@@ -15,7 +18,11 @@ const initialState: initialStateType = {
     open: false,
     Loading: false,
   },
-  logOutModalVisiblty: false,
+
+  OrderModal: {
+    open: true,
+    isLoading: false,
+  },
 };
 const modalslice = createSlice({
   name: "Modal",
@@ -24,11 +31,12 @@ const modalslice = createSlice({
     SetAuthModal(state, { payload }) {
       state.auth = payload;
     },
-    setLogoutModal(state) {
-      state.logOutModalVisiblty = !state.logOutModalVisiblty;
+
+    setOrderModal(state, { payload }) {
+      state.OrderModal = payload;
     },
   },
 });
 
-export const { SetAuthModal, setLogoutModal } = modalslice.actions;
+export const { SetAuthModal, setOrderModal } = modalslice.actions;
 export default modalslice.reducer;

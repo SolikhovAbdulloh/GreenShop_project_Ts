@@ -100,6 +100,20 @@ export interface Blogtype {
   __v: number;
   _id: string;
 }
+export interface MakeOrderType {
+  name: string;
+  surname: string;
+  country: string;
+  street: string;
+  state: string;
+  email: string;
+  zip: string;
+  appartment: string;
+  town: string;
+  phone_number: string;
+  comment: string;
+  payment_method: string;
+}
 export interface UserType {
   create_account_limit?: number;
   create_plant_limit?: number;

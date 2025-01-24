@@ -6,7 +6,7 @@ import { CouponType, UserType } from "../../../@types";
 import { notificationApi } from "../../../generic/notification";
 import { useDispatch } from "react-redux";
 import { signInWithGoogle } from "../../../config";
-import { SetAuthModal } from "../../../redux/modal.slice";
+import { SetAuthModal, setOrderModal } from "../../../redux/modal.slice";
 import { useSignIn } from "react-auth-kit";
 
 const useLoginGoogle = () => {
@@ -158,10 +158,34 @@ const useGetcupon = () => {
   });
 };
 
+const useMakeOrder = () => {
+  const axios = useAxios();
+  const notify = notificationApi();
+  const dispatch = useReduxDispatch();
+  return useMutation({
+    mutationFn: (data: object) => {
+      dispatch(setOrderModal({ open: false, isLoading: true }));
+      return axios({
+        url: "/order/make-order",
+        method: "POST",
+        body: { ...data },
+      });
+    },
+    onSuccess: () => {
+      dispatch(setOrderModal({ open: true, isLoading: false }));
+    },
+    onError: (err) => {
+      console.log(err.message);
+      notify("Not");
+    },
+  });
+};
+
 export {
   useGetcupon,
   useLoginGoogle,
   useRegisterGoogle,
   useLogin,
   useRegister,
+  useMakeOrder,
 };
