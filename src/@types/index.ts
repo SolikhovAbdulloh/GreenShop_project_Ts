@@ -81,7 +81,7 @@ export interface DataType {
   isError: boolean;
 }
 export interface CouponType {
-  data: {
+  data:{
     code: string;
     discount_for: number;
     id: number;
@@ -107,18 +107,33 @@ export interface UserType {
   created_at?: string;
   created_by?: string;
   email?: string;
-  followers?: string[];
   hashtags?: [];
   name?: string;
   order_list?: [];
   password?: string;
-  permission?: string;
   profile_photo?: string;
   surname?: string;
   user_type?: string;
   username?: string;
   _id?: string;
   wishlist?: WishListItemType[];
+  billing_address?: BillingAdres;
+  followers?: string[];
+  phone_number?:string;
+  permission?: {
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+    read: boolean;
+  };
+}
+interface BillingAdres {
+  country?: string;
+  town?: string;
+  street_address?: string;
+  additional_street_address?: string;
+  state?: string;
+  zip?: string;
 }
 
 export interface WishListItemType {

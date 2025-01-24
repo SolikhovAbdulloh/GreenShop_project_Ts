@@ -17,9 +17,9 @@ const My_products: FC = () => {
   });
 
   return (
-    <div className="grid grid-cols-3 gap-9 ">
+    <div className="grid grid-cols-3 gap-9">
       {isError || isLoading ? (
-        <Card_Loader />
+        Card_Loader()
       ) : (
         data?.map((value: CardType) => (
           <div className=" flex ">

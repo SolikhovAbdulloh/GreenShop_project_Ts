@@ -41,6 +41,7 @@ const useRegisterGoogle = () => {
   const notify = notificationApi();
   const dispatch = useDispatch();
   const axios = useAxios();
+  const sigIn = useSignIn();
 
   return useMutation({
     mutationFn: async () => {
@@ -53,7 +54,14 @@ const useRegisterGoogle = () => {
     },
     onSuccess: (data: { token: string; user: UserType }) => {
       dispatch(SetAuthModal({ open: true })), notify("RegisterGoogle");
-      const { token } = data;
+      const { token, user } = data;
+      console.log(data);
+      sigIn({
+        token,
+        tokenType: "Bearer",
+        expiresIn: 3600,
+        authState: user,
+      });
       localStorage.setItem("token", token);
     },
     onError: (err) => {
@@ -72,10 +80,10 @@ const useLogin = () => {
     mutationFn: ({ data }: { data: object }) =>
       axios({ url: "/user/sign-in", body: data, method: "POST" }),
 
-    onSuccess: (data: {  data:{token: string; user: UserType} }): void => {
+    onSuccess: (data: { data: { token: string; user: UserType } }): void => {
       const { token, user } = data.data;
       // console.log(data);
-      console.log(user)
+      console.log(user);
       sigIn({
         token,
         authState: user,
@@ -99,15 +107,22 @@ const useRegister = () => {
   const notify = notificationApi();
   const dispatch = useDispatch();
   const axios = useAxios();
+  const sigIn = useSignIn();
   return useMutation({
-    mutationFn: async ({ data }: { data: object }) => 
-       await axios({ url: "/user/sign-up", body: data, method: "POST" }),
-    
-    onSuccess: ({data}: {data: { token: string; user: UserType }}) => {
-      // const { token } = data;
+    mutationFn: async ({ data }: { data: object }) =>
+      await axios({ url: "/user/sign-up", body: data, method: "POST" }),
+
+    onSuccess: ({ data }: { data: { token: string; user: UserType } }) => {
+      const { token, user } = data;
       console.log(data);
-      
-      // localStorage.setItem("token", token);
+      sigIn({
+        token,
+        tokenType: "Bearer",
+        expiresIn: 3600,
+        authState: user,
+      });
+
+      localStorage.setItem("token", token);
       notify("RegisterGoogle");
       dispatch(SetAuthModal({ open: false }));
     },

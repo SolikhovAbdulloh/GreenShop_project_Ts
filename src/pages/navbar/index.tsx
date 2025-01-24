@@ -78,7 +78,7 @@ const Navbar: React.FC = () => {
         <button
           onClick={ () => {!IsAuth
             ? dispatch(SetAuthModal({ open: true }), navigate("/Home"))
-            : navigate("/profile");}}
+            : navigate("/profile/wishlist");}}
           
           className="w-[100px] h-[35px] flex items-center bg-[#46A358] text-white rounded-md justify-center gap-1"
         >

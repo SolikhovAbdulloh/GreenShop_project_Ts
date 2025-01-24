@@ -1,11 +1,31 @@
 import { Form, Input, Radio } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { useAuthUser } from "react-auth-kit";
+import { UserType } from "../../../../@types";
 
 const OrdersForms = () => {
+  const auth: UserType = useAuthUser()() ?? {};
+
+  //console.log(auth);
+
   const radio_style: string =
     "bordant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-in-form-item border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg css-k7429zer";
   return (
-    <Form layout="vertical" name="control-hooks">
+    <Form
+      fields={[
+        { name: "name", value: auth.name },
+        { name: "country", value: auth.billing_address?.country },
+        { name: "street", value: auth.billing_address?.street_address },
+        { name: "email", value: auth.email },
+        { name: "last_name", value: auth.surname },
+        { name: "town", value: auth.billing_address?.town },
+        { name: "state", value: auth.billing_address?.state },
+        { name: "zip", value: auth.billing_address?.zip },
+        { name: "phone_number", value: auth.phone_number },
+      ]}
+      layout="vertical"
+      name="control-hooks"
+    >
       <div className="grid grid-cols-2 gap-5">
         <div>
           <Form.Item name="name" label="Name" rules={[{ required: true }]}>
