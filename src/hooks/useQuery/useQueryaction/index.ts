@@ -1,12 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxios } from "../../useAxios";
 import { useReduxDispatch } from "../../useRedux";
 import { setCoupon, setIsLoading } from "../../../redux/cupon_slice";
-import { CouponType, UserType } from "../../../@types";
+import type { CouponType, OrderType, UserType } from "../../../@types";
 import { notificationApi } from "../../../generic/notification";
 import { useDispatch } from "react-redux";
 import { signInWithGoogle } from "../../../config";
-import { SetAuthModal, setOrderModal } from "../../../redux/modal.slice";
+import {
+  SetAuthModal,
+  setOrderDetails,
+  setOrderModal,
+} from "../../../redux/modal.slice";
 import { useSignIn } from "react-auth-kit";
 
 const useLoginGoogle = () => {
@@ -181,6 +185,35 @@ const useMakeOrder = () => {
   });
 };
 
+const useDeleteOrderCashe = () => {
+  const quaeryClient = useQueryClient();
+  return ({ _id }: { _id: string }) => {
+    quaeryClient.setQueryData(["order"], (oldData: any) => {
+      return oldData.filter((value: OrderType) => value._id !== _id);
+    });
+  };
+};
+
+const useDeleteOrderApi = () => {
+  const dispatch = useDispatch();
+  const notify = notificationApi();
+  const axios = useAxios();
+  return useMutation({
+    mutationFn: ({ _id }: { _id: string }) => {
+      const deletecashe = useDeleteOrderCashe();
+      dispatch(setOrderDetails());
+      return axios({
+        url: "/order/delete-order",
+        method: "DELETE",
+        body: { _id },
+      });
+    },
+    onSuccess: () => {
+      notify("Delete");
+    },
+  });
+};
+
 export {
   useGetcupon,
   useLoginGoogle,
@@ -188,4 +221,5 @@ export {
   useLogin,
   useRegister,
   useMakeOrder,
+  useDeleteOrderApi,
 };

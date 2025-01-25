@@ -1,5 +1,14 @@
 import { notification } from "antd";
-type NotificationType = "Success" | "Not" | "LoginGoogle" | "RegisterGoogle"|"Not register"|"Not login"|'Like'|'Dislike'
+type NotificationType =
+  | "Success"
+  | "Not"
+  | "Delete"
+  | "LoginGoogle"
+  | "RegisterGoogle"
+  | "Not register"
+  | "Not login"
+  | "Like"
+  | "Dislike";
 export const notificationApi = () => {
   const notify = (props: NotificationType) => {
     switch (props) {
@@ -19,6 +28,8 @@ export const notificationApi = () => {
         return notification.success({ message: "Add liked" });
       case "Dislike":
         return notification.info({ message: "Delete like" });
+      case "Delete":
+        return notification.info({ message: "Delete product" });
     }
   };
   return notify;

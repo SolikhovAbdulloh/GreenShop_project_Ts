@@ -81,7 +81,7 @@ export interface DataType {
   isError: boolean;
 }
 export interface CouponType {
-  data:{
+  data: {
     code: string;
     discount_for: number;
     id: number;
@@ -133,7 +133,7 @@ export interface UserType {
   wishlist?: WishListItemType[];
   billing_address?: BillingAdres;
   followers?: string[];
-  phone_number?:string;
+  phone_number?: string;
   permission?: {
     create: boolean;
     update: boolean;
@@ -153,6 +153,18 @@ interface BillingAdres {
 export interface WishListItemType {
   flower_id: string;
   route_path: string;
+}
+
+export interface OrderType {
+  billing_address: BillingAdres;
+  created_at: string;
+  created_by: string;
+  extra_shop_info: {
+    total: number;
+    method: string;
+  };
+  shop_list: CardType[];
+  _id: string;
 }
 
 export interface UserTypeApi {

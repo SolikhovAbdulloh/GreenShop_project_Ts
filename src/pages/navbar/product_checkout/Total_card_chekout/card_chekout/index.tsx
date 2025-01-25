@@ -12,7 +12,6 @@ const Total_chekout: FC = () => {
     return Number((acc + price).toFixed(2));
   }, 0);
 
-
   const coupon_value = Number(coupon);
 
   const cupon_title_style = "text-[#3D3D3D] text-[15px] font-normal";

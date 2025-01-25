@@ -21,8 +21,8 @@ const Wishlist: FC = () => {
       {isLoading || isError
         ? Card_Loader()
         : data?.map((value: CardType) => (
-            <div className="flex">
-              <Card key={value?._id} {...value} />
+            <div key={value?._id} className="flex">
+              <Card {...value} />
             </div>
           ))}
     </div>
