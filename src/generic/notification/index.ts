@@ -8,7 +8,11 @@ type NotificationType =
   | "Not register"
   | "Not login"
   | "Like"
-  | "Dislike";
+  | "Dislike"
+  | "edit"
+  | "follow"
+  | "unfollow"
+  | "edit-adress";
 export const notificationApi = () => {
   const notify = (props: NotificationType) => {
     switch (props) {
@@ -30,6 +34,10 @@ export const notificationApi = () => {
         return notification.info({ message: "Delete like" });
       case "Delete":
         return notification.info({ message: "Delete product" });
+      case "edit-adress":
+        return notification.success({ message: "Adress Success" });
+      case "unfollow":
+        return notification.success({ message: "unfollow" });
     }
   };
   return notify;

@@ -35,12 +35,11 @@ const Blog_card: FC<Blogtype> = ({
     >
       <Card.Meta
         avatar={
-          <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" />
+          <Avatar className="cursor-pointer" src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" />
         }
         title={
           <h2
-            // className="cursor-pointer"
-
+            className="cursor-pointer"
             onClick={() => {
               axios({ url: "/user/blog/view", method: "PUT", body: { _id } });
               navigate(`/blog/${_id}/${created_by}`);

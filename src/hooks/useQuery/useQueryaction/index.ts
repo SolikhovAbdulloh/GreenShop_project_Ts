@@ -12,6 +12,7 @@ import {
   setOrderModal,
 } from "../../../redux/modal.slice";
 import { useSignIn } from "react-auth-kit";
+import { useHandler } from "../../../generic/handler";
 
 const useLoginGoogle = () => {
   const axios = useAxios();
@@ -167,7 +168,11 @@ const useMakeOrder = () => {
   const notify = notificationApi();
   const dispatch = useReduxDispatch();
   return useMutation({
-    mutationFn: (data: object) => {
+    mutationFn: (data: {
+      shop_list: object;
+      billing_address: object;
+      extra_shop_info: object;
+    }) => {
       dispatch(setOrderModal({ open: false, isLoading: true }));
       return axios({
         url: "/order/make-order",
@@ -198,9 +203,11 @@ const useDeleteOrderApi = () => {
   const dispatch = useDispatch();
   const notify = notificationApi();
   const axios = useAxios();
+  const deletecashe = useDeleteOrderCashe();
+
   return useMutation({
     mutationFn: ({ _id }: { _id: string }) => {
-      const deletecashe = useDeleteOrderCashe();
+      deletecashe({ _id });
       dispatch(setOrderDetails());
       return axios({
         url: "/order/delete-order",
@@ -214,6 +221,20 @@ const useDeleteOrderApi = () => {
   });
 };
 
+const useFollowerUser = () => {
+  const axios = useAxios();
+  const notify = notificationApi();
+  const { useFollowUserCashe } = useHandler();
+  return useMutation({
+    mutationFn: (_id: string) => {
+      useFollowUserCashe(_id);
+      return axios({ url: "/user/follow", method: "POST", body: { _id } }).then(
+        () => notify("follow")
+      );
+    },
+  });
+};
+
 export {
   useGetcupon,
   useLoginGoogle,
@@ -222,4 +243,5 @@ export {
   useRegister,
   useMakeOrder,
   useDeleteOrderApi,
+  useFollowerUser,
 };

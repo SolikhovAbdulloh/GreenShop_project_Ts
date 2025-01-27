@@ -184,3 +184,11 @@ export interface PathProfileType {
   Component: React.FunctionComponent;
   Icon: React.ForwardRefExoticComponent<React.RefAttributes<HTMLDivElement>>;
 }
+
+export interface InputsType {
+  name: string;
+  username: string;
+  phone_number: string;
+  email: string;
+  surname: string;
+}

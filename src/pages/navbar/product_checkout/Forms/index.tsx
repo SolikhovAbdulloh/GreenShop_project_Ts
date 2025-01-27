@@ -29,7 +29,11 @@ const OrdersForms = () => {
       totel: total_price,
       method: e.payment_method,
     };
-    await mutate({ shop_list: shop, billing_address: e, shop_order });
+    await mutate({
+      shop_list: shop,
+      billing_address: e,
+      extra_shop_info: shop_order,
+    });
   };
   return (
     <Form

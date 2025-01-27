@@ -7,7 +7,6 @@ import Blog_card from "./blog_card";
 import Search from "antd/es/input/Search";
 import { Searchparams } from "../../generic/useParams";
 import { Spin } from "antd";
-import { useNavigate } from "react-router-dom";
 import { useReduxDispatch } from "../../hooks/useRedux";
 
 interface ApiBlog {
@@ -16,7 +15,6 @@ interface ApiBlog {
 }
 function Blog() {
   const dispatch = useReduxDispatch()
-  const navigate = useNavigate()
   const { Setparam, getParam } = Searchparams();
   const onSearch = (e: string) => {
     Setparam({ search: e });
@@ -92,10 +90,11 @@ function Blog() {
           )}
         </div>
       </div>
-      <div className="justify-between gap-5 grid grid-cols-3 ">
+      <div className="justify-between  !w-full gap-5 grid grid-cols-3 ">
         {isLoading ? (
-          <div className="my-7 m-auto ">
-            <Spin size="large" className="m-auto" tip="Loading"></Spin>
+          <div className="!my-7 m-auto">
+            <Spin size="large" className="!m-auto" tip="Loading">
+            </Spin>
           </div>
         ) : (
           data?.map((value) => <Blog_card key={value._id} {...value} />)

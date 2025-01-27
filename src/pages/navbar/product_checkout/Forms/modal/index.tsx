@@ -7,6 +7,7 @@ import {
 import { setOrderModal } from "../../../../../redux/modal.slice";
 import { useNavigate } from "react-router-dom";
 import Check_data from "../check_data";
+import { PriceFuction } from "../../../../../utils";
 
 const ModalOrder: FC = () => {
   const { OrderModal } = useReduxSelector((st) => st.modalslice);
@@ -18,8 +19,12 @@ const ModalOrder: FC = () => {
     navigate("/profile/wishlist");
   };
 
-  const total_price = shop.reduce((acc, value) => (acc += value.price), 16);
-  console.log(total_price);
+  // const total_price = shop.reduce((acc, value) => (acc += value.price), 16);
+  // console.log(total_price);
+   const PriceAllProduct = shop.reduce((acc, product) => {
+      const price = PriceFuction(Number(product.count), Number(product.price));
+      return Number((acc + price).toFixed(2));
+    }, 16);
 
   return (
     <div>
@@ -41,7 +46,7 @@ const ModalOrder: FC = () => {
           </div>
           <div className="border-r pr-4">
             <p>Total</p>
-            <h2 className="font-bold">$ {total_price.toFixed(2)}</h2>
+            <h2 className="font-bold">$ {PriceAllProduct.toFixed(2)}</h2>
           </div>
           <div className="border-r pr-4">
             <p>Payment Method</p>
@@ -64,7 +69,7 @@ const ModalOrder: FC = () => {
         </div>
         <div className="flex items-center justify-between  border-b border-[#46A35880]">
           <h2>Total</h2>
-          <p className="font-bold text-[#46A358]">${total_price.toFixed(2)}</p>
+          <p className="font-bold text-[#46A358]">${PriceAllProduct.toFixed(2)}</p>
         </div>
         <p className="text-center pt-4">
           Your order is currently being processed. You will receive an order

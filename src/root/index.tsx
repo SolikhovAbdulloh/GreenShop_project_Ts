@@ -14,6 +14,7 @@ import Adress from "../components/profile/pages_profile/Address";
 import My_products from "../components/profile/pages_profile/My_products";
 import Wishlist from "../components/profile/pages_profile/Wishlist";
 import Details from "../components/profile/pages_profile/Details";
+import User from "../pages/user";
 
 export const root = createBrowserRouter([
   {
@@ -69,10 +70,10 @@ export const root = createBrowserRouter([
             element: <Details />,
           },
         ],
-        // children: path_profile.map(({ path, Component }) => ({
-        //   path: `${path}`,
-        //   element: <Component />,
-        // })),
+      },
+      {
+        path: "/user/:id",
+        element: <User />,
       },
     ],
   },

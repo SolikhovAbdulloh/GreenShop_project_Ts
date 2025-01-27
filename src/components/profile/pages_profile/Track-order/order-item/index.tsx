@@ -10,11 +10,13 @@ import Check_data from "../../../../../pages/navbar/product_checkout/Forms/check
 import { useDeleteOrderApi } from "../../../../../hooks/useQuery/useQueryaction";
 
 const OrderItem = (data: OrderType) => {
+  
   const { orderDetailVisiblty } = useReduxSelector((s) => s.modalslice);
   const { order } = useReduxSelector((state) => state.orderSlice);
   const dispatch = useReduxDispatch();
   const { mutate } = useDeleteOrderApi();
   console.log(mutate);
+
 
   return (
     <div>
@@ -29,9 +31,7 @@ const OrderItem = (data: OrderType) => {
         </div>
         <div className="border-r pl-4">
           <p>Total</p>
-          <h2 className="font-bold">
-            $ {data?.extra_shop_info.total?.toFixed(2)}
-          </h2>
+          <h2 className="font-bold">{order?.extra_shop_info?.total?.toFixed(2)}</h2>
         </div>
         <div className="border-r pl-4">
           <p>More</p>
@@ -76,7 +76,7 @@ const OrderItem = (data: OrderType) => {
           </div>
         </div>
         <div className="mt-10">
-          <h1 className="font-bold text-xl border-b border-[#46A35880]">
+          <h1 className="font-bold mb-5 pb-3 text-xl border-b border-[#00761880]">
             Order Details
           </h1>
           {order?.shop_list?.map((value: CardType) => (

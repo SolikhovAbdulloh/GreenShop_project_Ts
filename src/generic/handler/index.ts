@@ -17,6 +17,17 @@ const useHandler = () => {
   let SignIn = useSignIn();
   const auth: UserType = useAuthUser()() ?? {};
 
+  const updaterUserAuth = (sholdUser: object) => {
+    SignIn({
+      token: localStorage.getItem("token") as string,
+      tokenType: "Bearer",
+      expiresIn: 3600,
+      authState: {
+        ...auth,
+        ...sholdUser,
+      },
+    });
+  };
   const likeHundler = ({ isLiked, data }: LikeType) => {
     const like = async () => {
       SignIn({
@@ -56,7 +67,37 @@ const useHandler = () => {
     }
     return like;
   };
-  return { likeHundler };
+  const updateUser = async (data: object) => {
+    try {
+      updaterUserAuth(data);
+      await axios({
+        url: "/user/account-details",
+        method: "POST",
+        body: data,
+      }).then(() => notify("edit"));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateAdress = async ({ data, e }: { data: object; e: object }) => {
+    try {
+      updaterUserAuth(data);
+      await axios({
+        url: "/user/address",
+        method: "POST",
+        body: e,
+      }).then((m) => console.log(m));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const useFollowUserCashe = (_id: string) => {
+    return updaterUserAuth({
+      followers: auth.followers?.filter((val) => val !== _id),
+    });
+  };
+
+  return { likeHundler, updateUser, updateAdress, useFollowUserCashe };
 };
 
 export { useHandler };

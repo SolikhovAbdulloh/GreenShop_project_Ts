@@ -1,5 +1,4 @@
 import logo from "../../../images/logo.svg";
-import { IoSearchOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoMdLogIn } from "react-icons/io";
@@ -16,6 +15,7 @@ import { UserType } from "../../@types";
 const Navbar: React.FC = () => {
   const IsAuth = useIsAuthenticated()();
   const UserAuth: UserType = useAuthUser()() ?? {};
+  
   // console.log(IsAuth);
   // console.log(UserAuth);
 
@@ -70,7 +70,6 @@ const Navbar: React.FC = () => {
         <p className="text-[20px] font-medium">
           <span className="text-[#46a358]">{time}</span>
         </p>
-        <IoSearchOutline className="text-[24px] cursor-pointer" />
         <IoIosNotificationsOutline className="text-[29px] cursor-pointer" />
         <Badge onClick={() => navigate("karzinka")} count={shop.length}>
           <FiShoppingCart className="text-[24px] cursor-pointer" />

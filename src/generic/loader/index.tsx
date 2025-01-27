@@ -18,6 +18,17 @@ const useLoader = () => {
       </div>
     ));
   };
+  const Card_Order = () => {
+    return Array.from({ length: 6 }).map((_, idx) => (
+      <div className="flex-col flex items-start gap-2 w-full" key={idx}>
+        <Skeleton.Input
+          className="!w-full mb-2
+        !h-[60px]"
+          active
+        />
+      </div>
+    ));
+  };
   const BlogLoader = () => {
     <div className="flex items-center ">
       <Avatar />
@@ -27,7 +38,7 @@ const useLoader = () => {
       </div>
     </div>;
   };
-  return { Category_loader, Card_Loader, BlogLoader };
+  return { Category_loader, Card_Loader, BlogLoader, Card_Order };
 };
 
 export default useLoader;
