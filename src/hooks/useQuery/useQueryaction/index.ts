@@ -228,9 +228,25 @@ const useFollowerUser = () => {
   return useMutation({
     mutationFn: (_id: string) => {
       useFollowUserCashe(_id);
-      return axios({ url: "/user/follow", method: "POST", body: { _id } }).then(
-        () => notify("follow")
-      );
+      return axios({ url: "/user/follow", method: "POST", body: { _id } });
+    },
+    onSuccess: () => {
+      notify("follow");
+    },
+  });
+};
+
+const useUnFollowerUser = () => {
+  const axios = useAxios();
+  const notify = notificationApi();
+  const { useUnFollowUserCashe } = useHandler();
+  return useMutation({
+    mutationFn: (_id: string) => {
+      useUnFollowUserCashe(_id);
+      return axios({ url: "/user/unfollow", method: "POST", body: { _id } });
+    },
+    onSuccess: () => {
+      notify('unfollow');
     },
   });
 };
@@ -244,4 +260,5 @@ export {
   useMakeOrder,
   useDeleteOrderApi,
   useFollowerUser,
+  useUnFollowerUser,
 };

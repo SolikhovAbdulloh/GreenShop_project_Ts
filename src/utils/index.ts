@@ -1,4 +1,14 @@
-import type { HeroSliderType, options, TitleCategory } from "../@types";
+import type {
+  HeroSliderType,
+  options,
+  TitleCategory,
+  user_bodyType,
+} from "../@types";
+import About from "../pages/user/body/About";
+import Follower from "../pages/user/body/Followers";
+import Likes from "../pages/user/body/Likes";
+import Posts from "../pages/user/body/Posts";
+import Products from "../pages/user/body/Products";
 
 export const hero_mock: HeroSliderType[] = [
   {
@@ -104,3 +114,30 @@ export const PriceFuction = (count: number, price: number) => {
 //     title: "Track Order",
 //   },
 // ];
+export let user_body_title: user_bodyType[] = [
+  {
+    id: "1",
+    title: "About",
+    Component: About,
+  },
+  {
+    id: "2",
+    title: "Products",
+    Component: Products,
+  },
+  {
+    id: "3",
+    title: "Posts",
+    Component: Posts,
+  },
+  {
+    id: "4",
+    title: "Likes",
+    Component: Likes,
+  },
+  {
+    id: "5",
+    title: "Followers",
+    Component: Follower,
+  },
+];

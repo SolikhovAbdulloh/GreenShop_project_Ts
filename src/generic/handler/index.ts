@@ -93,11 +93,23 @@ const useHandler = () => {
   };
   const useFollowUserCashe = (_id: string) => {
     return updaterUserAuth({
-      followers: auth.followers?.filter((val) => val !== _id),
+      followers: [...(auth.followers ?? []), _id],
     });
   };
 
-  return { likeHundler, updateUser, updateAdress, useFollowUserCashe };
+  const useUnFollowUserCashe = (_id: string) => {
+    return updaterUserAuth({
+      followers: auth.followers?.filter((value) => value !== _id),
+    });
+  };
+
+  return {
+    likeHundler,
+    updateUser,
+    updateAdress,
+    useFollowUserCashe,
+    useUnFollowUserCashe,
+  };
 };
 
 export { useHandler };

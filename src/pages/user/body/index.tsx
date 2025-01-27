@@ -1,9 +1,20 @@
-import React from 'react'
+import { Tabs } from "antd";
+import { user_body_title } from "../../../utils";
+import { FC } from "react";
 
-const BodyUser = () => {
+const BodyUser: FC = () => {
   return (
-    <div>BodyUser</div>
-  )
-}
+    <div>
+      <Tabs
+        defaultActiveKey="1"
+        items={user_body_title.map(({ id, Component, title }) => ({
+          label: title,
+          key: id,
+          children: <Component />,
+        }))}
+      />
+    </div>
+  );
+};
 
-export default BodyUser
+export default BodyUser;

@@ -2,7 +2,7 @@ import logo from "../../../images/logo.svg";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoMdLogIn } from "react-icons/io";
-import { Badge, Modal } from "antd";
+import { Badge, Modal, Popover } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useReduxDispatch, useReduxSelector } from "../../hooks/useRedux";
 import { SetAuthModal } from "../../redux/modal.slice";
@@ -11,11 +11,12 @@ import Login from "../Login";
 import Register from "../Register";
 import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
 import { UserType } from "../../@types";
+import Notification from "./notification";
 
 const Navbar: React.FC = () => {
   const IsAuth = useIsAuthenticated()();
   const UserAuth: UserType = useAuthUser()() ?? {};
-  
+
   // console.log(IsAuth);
   // console.log(UserAuth);
 
@@ -39,9 +40,7 @@ const Navbar: React.FC = () => {
         alt="Logo"
       />
 
-      <div
-        className={'flex items-center gap-5'}
-      >
+      <div className={"flex items-center gap-5"}>
         <a
           className={`text-[18px] cursor-pointer font-normal ${
             pathname !== "/Home"
@@ -70,15 +69,22 @@ const Navbar: React.FC = () => {
         <p className="text-[20px] font-medium">
           <span className="text-[#46a358]">{time}</span>
         </p>
-        <IoIosNotificationsOutline className="text-[29px] cursor-pointer" />
+        <Popover
+          title={"Notifications"}
+          content=<Notification/>
+          trigger="click"
+        >
+          <IoIosNotificationsOutline className="text-[29px] cursor-pointer" />
+        </Popover>
         <Badge onClick={() => navigate("karzinka")} count={shop.length}>
           <FiShoppingCart className="text-[24px] cursor-pointer" />
         </Badge>
         <button
-          onClick={ () => {!IsAuth
-            ? dispatch(SetAuthModal({ open: true }), navigate("/Home"))
-            : navigate("/profile/wishlist");}}
-          
+          onClick={() => {
+            !IsAuth
+              ? dispatch(SetAuthModal({ open: true }), navigate("/Home"))
+              : navigate("/profile/wishlist");
+          }}
           className="w-[100px] h-[35px] flex items-center bg-[#46A358] text-white rounded-md justify-center gap-1"
         >
           {IsAuth ? (

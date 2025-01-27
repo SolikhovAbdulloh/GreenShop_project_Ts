@@ -37,7 +37,9 @@ export const notificationApi = () => {
       case "edit-adress":
         return notification.success({ message: "Adress Success" });
       case "unfollow":
-        return notification.success({ message: "unfollow" });
+        return notification.info({ message: "unfollow" });
+      case "follow":
+        return notification.success({ message: "follow" });
     }
   };
   return notify;

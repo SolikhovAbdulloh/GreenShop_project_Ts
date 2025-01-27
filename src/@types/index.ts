@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface FieldType {
   email?: string;
   password?: string;
@@ -191,4 +193,9 @@ export interface InputsType {
   phone_number: string;
   email: string;
   surname: string;
+}
+export interface user_bodyType {
+  id: string;
+  title: string;
+  Component: React.FC;
 }

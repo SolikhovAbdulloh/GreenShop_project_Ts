@@ -1,5 +1,4 @@
 import {
-  MessageOutlined,
   MinusCircleOutlined,
   PlusCircleOutlined,
   SendOutlined,
@@ -11,23 +10,27 @@ import { useParams } from "react-router-dom";
 import { FunctionComponent } from "react";
 import { UserType, UserTypeApi } from "../../../@types";
 import { useQueryApi } from "../../../hooks/useQuery";
-import { useFollowerUser } from "../../../hooks/useQuery/useQueryaction";
+import {
+  useFollowerUser,
+  useUnFollowerUser,
+} from "../../../hooks/useQuery/useQueryaction";
 import { useAuthUser } from "react-auth-kit";
 
 const HeaderUser: FunctionComponent = () => {
   const { id } = useParams();
   const AuthUser: UserType = useAuthUser()() ?? {};
-  console.log(AuthUser);
+  //   console.log(AuthUser);
 
   const { isLoading }: UserTypeApi = useQueryApi({
     url: `/user/by_id/${id}`,
     pathname: `/user/by_id/${id}`,
   });
   const { mutate } = useFollowerUser();
+  const { mutate: Unfollow } = useUnFollowerUser();
   const queryClient = useQueryClient();
 
   const data: UserType = queryClient.getQueryData([`/user/by_id/${id}`]) ?? {};
-  //   console.log(data);
+    // console.log(data.followers?.length);
 
   const btn_style =
     "bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white py-[10px] px-[15px] max-sm:py-[5px] max-sm:px-[5px] max-sm:text-[14px]";
@@ -71,31 +74,41 @@ const HeaderUser: FunctionComponent = () => {
           </div>
           <div className="flex gap-4 max-sm:flex-wrap">
             <>
-              <button className={`${btn_style}`}>
-                <SendOutlined />
-                Send Invitation
-              </button>
-              {AuthUser._id === id ? (
-                <button className={`${btn_style}`}>
-                  <UserOutlined />
-                  You
-                </button>
-              ) : AuthUser.followers?.includes(String(id)) ? (
-                <button className={`${btn_style}`}>
-                  <MinusCircleOutlined />
-                  Unfollow
-                </button>
+              {isLoading ? (
+                <>
+                  <Skeleton.Input active={true} />
+                  <Skeleton.Input active={true} />
+                </>
               ) : (
-                <button
-                  onClick={() => mutate(String(id))}
-                  className={`${btn_style}`}
-                >
-                  <PlusCircleOutlined />
-                  Follow
-                </button>
+                <>
+                  <button className={`${btn_style}`}>
+                    <SendOutlined />
+                    Send Invitation
+                  </button>
+                  {String(AuthUser._id) === String(id) ? (
+                    <button className={`${btn_style}`}>
+                      <UserOutlined />
+                      You
+                    </button>
+                  ) : AuthUser.followers?.includes(String(id)) ? (
+                    <button
+                      onClick={() => Unfollow(String(id))}
+                      className={`${btn_style}`}
+                    >
+                      <MinusCircleOutlined />
+                      Unfollow
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => mutate(String(id))}
+                      className={`${btn_style}`}
+                    >
+                      <PlusCircleOutlined />
+                      Follow
+                    </button>
+                  )}
+                </>
               )}
-              {/*
-               */}
             </>
           </div>
         </div>
